@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:three_t_fashion/forgot_password/forgot_password_screen.dart';
+import 'package:three_t_fashion/register/register_screen.dart';
+import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 class FormLogin extends StatefulWidget {
   @override
@@ -31,7 +34,7 @@ class _FormLoginState extends State<FormLogin> {
             width: 350,
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: Icon(Icons.facebook, size: 30),
+              icon: SvgPicture.asset("assets/icons/facebook.svg", height: 30, color: Colors.white),
               label: const Text(
                 "Continue with Facebook",
                 style: TextStyle(
@@ -40,6 +43,7 @@ class _FormLoginState extends State<FormLogin> {
               ),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 57 , 70, 151)),
               ),
             ),
           ),
@@ -48,8 +52,8 @@ class _FormLoginState extends State<FormLogin> {
             width: 350,
             child: ElevatedButton.icon(
               onPressed: () {},
-              // suffixIcon: SvgPicture.asset("assets/icons/google.svg"),
-              icon: Icon(Icons.g_translate, color: Colors.black, size: 30),
+              icon: SvgPicture.asset("assets/icons/google.svg", height: 30),
+              //icon: Icon(Icons.g_translate, color: Colors.black, size: 30),
               label: const Text(
                 "Continue with Google",
                 style: TextStyle(
@@ -63,7 +67,7 @@ class _FormLoginState extends State<FormLogin> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Container(
               child: const Text(
                 'OR',
@@ -111,25 +115,50 @@ class _FormLoginState extends State<FormLogin> {
             child: TextField(
               keyboardType: TextInputType.visiblePassword,
               obscureText: isHidden,
-              style: const TextStyle(
-                fontSize: 20,
-              ),
-              decoration: InputDecoration(
-                suffixIcon: InkWell(
-                  onTap: _togglePassword,
-                  child: Icon(icon),
-                ),
+                decoration: InputDecoration(
+                  suffixIcon: InkWell(
+                    onTap: _togglePassword,
+                    child: Icon(icon),
+                  ),
                 icon: Icon(Icons.lock, color: Colors.grey),
                 hintText: 'Password',
                 border: InputBorder.none,
               ),
             ),
           ),
-          const SizedBox(height: 50),
+          Container(
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ForgotPasswordScreenScreens(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Forgot password?",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
           Container(
             width: 350,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreens(),
+                  ),
+                );
+              },
               child: const Text(
                 "Login",
                 style: TextStyle(
@@ -143,17 +172,36 @@ class _FormLoginState extends State<FormLogin> {
               ),
             ),
           ),
+          const SizedBox(height: 20),
+          Container(
+            width: 350,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterScreens(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Register",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
   void _togglePassword () {
-    // if (isHidden == true) {
-    //   isHidden = false;
-    // }
-    // else {
-    //   isHidden = true;
-    // }
     setState (() {
       isHidden =! isHidden;
       if (icon == Icons.visibility_off) {

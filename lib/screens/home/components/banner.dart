@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 class Banners extends StatefulWidget {
   Banners() : super();
 
-  final String title = "Carousel Demo";
-
   @override
-  BannersState createState() => BannersState();
+  _BannersState createState() => _BannersState();
 }
 
-class BannersState extends State<Banners> {
-  BannersState createState() => BannersState();
+class _BannersState extends State<Banners> {
   late CarouselSlider carouselSlider;
   int _current = 0;
 

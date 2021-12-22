@@ -13,6 +13,15 @@ class AccountDetailScreen extends StatelessWidget {
         }
       },
      child: Scaffold(
+       appBar: AppBar(
+         title: Text(
+           'Detail Account',
+           style: TextStyle(
+             color: Colors.white,
+           ),
+         ),
+         backgroundColor: Colors.black,
+       ),
       body: Body(),
      ),
     );

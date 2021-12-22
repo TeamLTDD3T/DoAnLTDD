@@ -17,7 +17,16 @@ class TitleWithMoreBtn extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
       child: Row(
         children: <Widget>[
-          Title(color: Colors.black, child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
+          Title(
+              color: Colors.black,
+              child: Text(
+                title,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20
+                ),
+              ),
+          ),
           const Spacer(),
           TextButton(
             style: ButtonStyle(

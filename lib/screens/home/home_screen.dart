@@ -3,6 +3,7 @@ import 'package:three_t_fashion/components/my_bottom_nav_bar.dart';
 import 'package:three_t_fashion/screens/home/components/body.dart';
 import 'package:three_t_fashion/screens/home/components/categories_body.dart';
 import 'package:three_t_fashion/screens/home/components/account_body.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
@@ -12,7 +13,6 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeScreens extends StatefulWidget {
-  const HomeScreens({Key? key}) : super(key: key);
 
   @override
   _HomeScreensState createState() => _HomeScreensState();
