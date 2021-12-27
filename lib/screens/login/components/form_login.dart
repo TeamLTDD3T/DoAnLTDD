@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:three_t_fashion/forgot_password/forgot_password_screen.dart';
-import 'package:three_t_fashion/register/register_screen.dart';
+import '../../forgot_password/forgot_password_screen.dart';
+import '../../register/register_screen.dart';
 import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 class FormLogin extends StatefulWidget {

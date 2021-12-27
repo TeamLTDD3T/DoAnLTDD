@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:three_t_fashion/screens/account/account_detail_screen.dart';
-import 'package:three_t_fashion/screens/home/home_screen.dart';
+import 'package:three_t_fashion/screens/account_detail/account_detail_screen.dart';
 import 'package:three_t_fashion/screens/login/login_screen.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 

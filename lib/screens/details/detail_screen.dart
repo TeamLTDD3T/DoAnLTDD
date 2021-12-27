@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/screens/details/components/body.dart';
+import 'package:three_t_fashion/screens/home/components/cart_body.dart';
 import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 

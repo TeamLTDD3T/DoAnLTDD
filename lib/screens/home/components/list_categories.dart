@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:three_t_fashion/screens/details/detail_screen.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 import '../../../models/category.dart';
-import '../../../constants.dart';
 
 class ListCategories extends StatelessWidget {
   List<Category> categories = [
