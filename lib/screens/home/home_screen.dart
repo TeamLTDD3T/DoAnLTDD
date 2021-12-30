@@ -4,6 +4,8 @@ import 'package:three_t_fashion/screens/home/components/body.dart';
 import 'package:three_t_fashion/screens/home/components/categories_body.dart';
 import 'package:three_t_fashion/screens/home/components/account_body.dart';
 
+import 'components/cart_body.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
   @override
@@ -23,7 +25,7 @@ class _HomeScreensState extends State<HomeScreens> {
   final screens = [
     Body(),
     CategoriesBody(),
-    Center(child: Text('Cart', style: TextStyle(fontSize: 60))),
+    CartBody(),
     AccountBody(),
   ];
 

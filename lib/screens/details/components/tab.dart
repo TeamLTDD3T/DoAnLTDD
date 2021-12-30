@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/screens/details/components/tab_detail.dart';
+import 'package:three_t_fashion/screens/details/components/tab_review.dart';
+import 'package:three_t_fashion/screens/details/components/tab_size.dart';
 
 class Tabs extends StatefulWidget {
   @override
@@ -24,45 +27,15 @@ class _TabsState extends State<Tabs> {
               ),
             ),
             Container(
-              height: 640,
+              height: 600,
               decoration: BoxDecoration(
                   border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
               ),
               child: TabBarView(
                 children: <Widget>[
-                  Container(
-                    child: Center(
-                      child: Text(
-                        'Display Tab 1',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text(
-                        'Display Tab 2',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Text(
-                        'Display Tab 3',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  TabDetail(),
+                  TabSize(),
+                  TabReview(),
                 ],
               ),
             ),

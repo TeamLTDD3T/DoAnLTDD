@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/constants.dart';
+import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 
 import 'banner.dart';
 import 'featured_3t_product.dart';
@@ -21,11 +22,32 @@ class Body extends StatelessWidget {
         children: <Widget>[
           HeaderWithSearchBox(size: size),
           Banners(),
-          TitleWithMoreBtn(title: "Recomended", press: () {}),
+          TitleWithMoreBtn(title: "Recomended", press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ListProductsScreen(),
+              ),
+            );
+          }),
           RecomendsProducts(),
-          TitleWithMoreBtn(title: "Featured Products", press: () {}),
+          TitleWithMoreBtn(title: "Featured Products", press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ListProductsScreen(),
+              ),
+            );
+          }),
           FeaturedProducts(),
-          TitleWithMoreBtn(title: "New Products", press: () {}),
+          TitleWithMoreBtn(title: "New Products", press: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ListProductsScreen(),
+              ),
+            );
+          }),
           NewProducts(),
           const SizedBox(height: kDefaultPadding),
         ],

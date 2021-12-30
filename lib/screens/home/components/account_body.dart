@@ -3,7 +3,6 @@ import 'package:three_t_fashion/constants.dart';
 import 'header.dart';
 import 'list_items_account.dart';
 
-
 class AccountBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

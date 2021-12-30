@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:three_t_fashion/screens/account/components/body.dart';
+import 'package:three_t_fashion/screens/account_detail/components/body.dart';
 
 class AccountDetailScreen extends StatelessWidget {
   const AccountDetailScreen({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class AccountDetailScreen extends StatelessWidget {
      child: Scaffold(
        appBar: AppBar(
          title: Text(
-           'Detail Account',
+           'Account Detail',
            style: TextStyle(
              color: Colors.white,
            ),

@@ -63,6 +63,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/images/Size/
     - assets/images/Logo/
     - assets/images/Background/
     - assets/images/Banners/

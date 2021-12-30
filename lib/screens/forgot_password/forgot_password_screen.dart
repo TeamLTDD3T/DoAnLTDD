@@ -9,14 +9,14 @@ class ForgotPasswordScreen extends StatelessWidget {
   }
 }
 
-class ForgotPasswordScreenScreens extends StatefulWidget {
-  const ForgotPasswordScreenScreens({Key? key}) : super(key: key);
+class ForgotPasswordScreens extends StatefulWidget {
+  const ForgotPasswordScreens({Key? key}) : super(key: key);
 
   @override
-  _ForgotPasswordScreenScreensState createState() => _ForgotPasswordScreenScreensState();
+  _ForgotPasswordScreensState createState() => _ForgotPasswordScreensState();
 }
 
-class _ForgotPasswordScreenScreensState extends State<ForgotPasswordScreenScreens> {
+class _ForgotPasswordScreensState extends State<ForgotPasswordScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,5 +33,3 @@ class _ForgotPasswordScreenScreensState extends State<ForgotPasswordScreenScreen
     );
   }
 }
-
-

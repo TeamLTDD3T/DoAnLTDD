@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/screens/check_out/check_out_screen.dart';
 import 'package:three_t_fashion/screens/details/components/body.dart';
+import 'package:three_t_fashion/screens/home/components/cart_body.dart';
 import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 
@@ -49,7 +51,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomeScreens(),
+                    builder: (context) => CheckOutScreens(),
                   ),
                 );
               },
@@ -77,12 +79,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
             height: 70,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreens(),
-                  ),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => HomeScreens(),
+                //   ),
+                // );
               },
               child: const Text(
                 "Add cart",

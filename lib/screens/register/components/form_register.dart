@@ -114,7 +114,7 @@ class _FormRegisterState extends State<FormRegister> {
               color: Colors.white,
             ),
             child: const TextField(
-              keyboardType: TextInputType.emailAddress,
+              keyboardType: TextInputType.name,
               decoration: InputDecoration(
                 icon: Icon(Icons.person, color: Colors.grey),
                 hintText: 'Full Name',

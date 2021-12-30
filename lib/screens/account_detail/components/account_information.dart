@@ -37,7 +37,7 @@ class _AccountInformationState extends State<AccountInformation> {
           ),
           SizedBox(height: 10),
           TextField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.name,
             decoration: InputDecoration(
               hintText: 'Full name',
               fillColor: Colors.grey,

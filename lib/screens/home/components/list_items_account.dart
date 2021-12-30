@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:three_t_fashion/screens/account/account_detail_screen.dart';
-import 'package:three_t_fashion/screens/home/home_screen.dart';
+import 'package:three_t_fashion/screens/account_detail/account_detail_screen.dart';
+import 'package:three_t_fashion/screens/change_password/change_password.dart';
 import 'package:three_t_fashion/screens/login/login_screen.dart';
+import 'package:three_t_fashion/screens/my_review/my_review_screen.dart';
+import 'package:three_t_fashion/screens/my_wishlist/my_wishlist_screen.dart';
+import 'package:three_t_fashion/screens/order/order_screen.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 
 class ListItemsAccount extends StatelessWidget {
@@ -36,7 +38,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ListProductsScreen(),
+                  builder: (context) => OrderScreen(),
                 ),
               );
             },
@@ -53,7 +55,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ListProductsScreen(),
+                  builder: (context) => WishlistScreen(),
                 ),
               );
             },
@@ -70,7 +72,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ListProductsScreen(),
+                  builder: (context) => MyReviewScreen(),
                 ),
               );
             },
@@ -87,7 +89,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ListProductsScreen(),
+                  builder: (context) => ChangePasswordScreen(),
                 ),
               );
             },
@@ -118,7 +120,6 @@ class ListItemsAccount extends StatelessWidget {
           ),
         ],
       ),
-
     );
   }
 }
