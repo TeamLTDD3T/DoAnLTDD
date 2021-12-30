@@ -12,20 +12,20 @@ class ListItemsAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
-    return Expanded (
+    return Expanded(
       child: ListView(
         padding: EdgeInsets.only(bottom: 10),
         children: [
-         ListTile(
-           onTap: () {
-             Navigator.push(
-               context,
-               MaterialPageRoute(
-                 builder: (context) => AccountDetailScreen(),
-               ),
-             );
-           },
-           leading: Icon(Icons.person_outline, size: 35),
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AccountDetailScreen(),
+                ),
+              );
+            },
+            leading: Icon(Icons.person_outline, size: 35),
             title: Text(
               'Details',
               style: TextStyle(
@@ -123,6 +123,3 @@ class ListItemsAccount extends StatelessWidget {
     );
   }
 }
-
-
-

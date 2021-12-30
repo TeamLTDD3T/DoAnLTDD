@@ -15,14 +15,14 @@ class _CartBodyState extends State<CartBody> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Header(size: size, text: 'Cart'),
-            ListCart(),
-            BottomCart(),
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Header(size: size, text: 'Cart'),
+          ListCart(),
+          BottomCart(),
+        ],
+      ),
     );
   }
 }

@@ -69,24 +69,23 @@ class TabReview extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              const Spacer(),
-              Text(
-                '25 Dec 2021',
-                textAlign: TextAlign.right,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
+              //mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.star, color: Colors.orange),
+                Icon(Icons.star, color: Colors.orange),
+                Icon(Icons.star, color: Colors.orange),
+                Icon(Icons.star, color: Colors.orange),
+                Icon(Icons.star, color: Colors.orange),
+                const Spacer(),
+                Text(
+                  '25 Dec 2021',
+                  textAlign: TextAlign.right,
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-            ]
-          ),
+              ]),
           SizedBox(height: 5),
           Row(
             children: [
@@ -122,10 +121,9 @@ class TabReview extends StatelessWidget {
             color: Colors.grey,
             alignment: Alignment.center,
           ),
-
           SizedBox(height: 10),
           Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
+              //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(Icons.star, color: Colors.orange),
                 Icon(Icons.star, color: Colors.orange),
@@ -141,8 +139,7 @@ class TabReview extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-              ]
-          ),
+              ]),
           SizedBox(height: 5),
           Row(
             children: [
@@ -179,21 +176,21 @@ class TabReview extends StatelessWidget {
             alignment: Alignment.center,
           ),
           TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SeeAllReviewScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'See all reviews',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.green,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SeeAllReviewScreen(),
                 ),
+              );
+            },
+            child: Text(
+              'See all reviews',
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.green,
               ),
+            ),
           )
         ],
       ),
