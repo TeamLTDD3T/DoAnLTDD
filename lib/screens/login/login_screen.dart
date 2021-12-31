@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/body.dart';
+
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
   @override
@@ -18,10 +19,16 @@ class LoginScreens extends StatefulWidget {
 class _LoginScreensState extends State<LoginScreens> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
         body: Body(),
+      ),
     );
   }
 }
-
-

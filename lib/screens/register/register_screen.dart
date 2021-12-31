@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'components/body.dart';
+
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
   @override
@@ -18,19 +19,25 @@ class RegisterScreens extends StatefulWidget {
 class _RegisterScreensState extends State<RegisterScreens> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Register',
-          style: TextStyle(
-            color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Register',
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
+          backgroundColor: Colors.black,
         ),
-        backgroundColor: Colors.black,
+        body: Body(),
       ),
-      body: Body(),
     );
   }
 }
-
-

@@ -93,8 +93,8 @@ class ListItemsAccount extends StatelessWidget {
                 ),
               );
             },
-            leading: Icon(Icons.vpn_key_outlined, size: 35),
-            title: Text(
+            leading: const Icon(Icons.vpn_key_outlined, size: 35),
+            title: const Text(
               'Change Password',
               style: TextStyle(
                 fontSize: 20,
@@ -103,15 +103,15 @@ class ListItemsAccount extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginScreens(),
-                ),
-              );
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreens(),
+                  ),
+                  (route) => false);
             },
-            leading: Icon(Icons.logout, size: 35),
-            title: Text(
+            leading: const Icon(Icons.logout, size: 35),
+            title: const Text(
               'Logout',
               style: TextStyle(
                 fontSize: 20,

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:three_t_fashion/data_sources/api_taikhoan.dart';
+import 'package:three_t_fashion/screens/register/function/check_information.dart';
 import '../../forgot_password/forgot_password_screen.dart';
 import '../../register/register_screen.dart';
 import 'package:three_t_fashion/screens/home/home_screen.dart';
@@ -10,7 +12,10 @@ class FormLogin extends StatefulWidget {
   _FormLoginState createState() => _FormLoginState();
 }
 
-class _FormLoginState extends State<FormLogin> {
+class _FormLoginState extends State<FormLogin> with InputValidationMixin {
+  final GlobalKey<FormState> _frmKey = GlobalKey<FormState>();
+  final txtEmail = TextEditingController();
+  final txtMatKhau = TextEditingController();
   bool isHidden = true;
   var icon = Icons.visibility_off;
   @override
@@ -34,7 +39,8 @@ class _FormLoginState extends State<FormLogin> {
             width: 350,
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: SvgPicture.asset("assets/icons/facebook.svg", height: 30, color: Colors.white),
+              icon: SvgPicture.asset("assets/icons/facebook.svg",
+                  height: 30, color: Colors.white),
               label: const Text(
                 "Continue with Facebook",
                 style: TextStyle(
@@ -43,7 +49,8 @@ class _FormLoginState extends State<FormLogin> {
               ),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 57 , 70, 151)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromARGB(255, 57, 70, 151)),
               ),
             ),
           ),
@@ -70,148 +77,190 @@ class _FormLoginState extends State<FormLogin> {
           const SizedBox(height: 20),
           Container(
               child: const Text(
-                'OR',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              )
-          ),
-          const SizedBox(height: 20),
-          Container(
-              child:const Text(
-                'Contiue with your email',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              )
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            width: 350,
-            decoration: const BoxDecoration(
+            'OR',
+            style: TextStyle(
               color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
-            child: const TextField(
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                icon: Icon(Icons.person, color: Colors.grey),
-                hintText: 'Email Address',
-                border: InputBorder.none,
-              ),
-            ),
-          ),
+          )),
           const SizedBox(height: 20),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            width: 350,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
-            child: TextField(
-              keyboardType: TextInputType.visiblePassword,
-              obscureText: isHidden,
-                decoration: InputDecoration(
-                  suffixIcon: InkWell(
-                    onTap: _togglePassword,
-                    child: Icon(icon),
-                  ),
-                icon: Icon(Icons.lock, color: Colors.grey),
-                hintText: 'Password',
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-          Container(
-            child: TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ForgotPasswordScreens(),
-                  ),
-                );
-              },
               child: const Text(
-                "Forgot password?",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
+            'Contiue with your email',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
             ),
-          ),
+          )),
+          const SizedBox(height: 20),
+          Form(
+            key: _frmKey,
+            child: Column(
+              children: [
+                Container(
+                  width: 350,
+                  child: TextFormField(
+                    controller: txtEmail,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      errorStyle: TextStyle(
+                        fontSize: 16.0,
+                        backgroundColor: Colors.black,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      hintText: 'Email Address',
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (isEmailValid(value!)) {
+                        return null;
+                      }
+                      return 'Enter a valid email address';
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 350,
+                  child: TextFormField(
+                    controller: txtMatKhau,
+                    obscureText: isHidden,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      errorStyle: const TextStyle(
+                        fontSize: 16.0,
+                        backgroundColor: Colors.black,
+                      ),
+                      fillColor: Colors.white,
+                      filled: true,
+                      suffixIcon: InkWell(
+                        onTap: _togglePassword,
+                        child: Icon(icon),
+                      ),
+                      hintText: 'Password',
+                      border: InputBorder.none,
+                    ),
+                    validator: (value) {
+                      if (isPasswordValid(value!)) {
+                        return null;
+                      }
+                      return 'Enter a valid password';
+                    },
+                  ),
+                ),
+                Container(
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreens(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  width: 350,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      if (_frmKey.currentState!.validate()) {
+                        _frmKey.currentState!.save();
 
-          const SizedBox(height: 20),
-          Container(
-            width: 350,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HomeScreens(),
+                        var test = await ApiServices()
+                            .dangNhap(txtEmail.text, txtMatKhau.text);
+                        if (test.email != '') {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomeScreens(),
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Notification'),
+                              content: const Text('Login failed'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                    ),
                   ),
-                );
-              },
-              child: const Text(
-                "Login",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
                 ),
-              ),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            width: 350,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RegisterScreens(),
+                const SizedBox(height: 20),
+                Container(
+                  width: 350,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterScreens(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Register",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                    ),
                   ),
-                );
-              },
-              child: const Text(
-                "Register",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
                 ),
-              ),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
-              ),
+              ],
             ),
           ),
         ],
       ),
     );
   }
-  void _togglePassword () {
-    setState (() {
-      isHidden =! isHidden;
+
+  void _togglePassword() {
+    setState(() {
+      isHidden = !isHidden;
       if (icon == Icons.visibility_off) {
         icon = Icons.visibility;
-      }
-      else
+      } else
         icon = Icons.visibility_off;
     });
   }
 }
-
-
-
