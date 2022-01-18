@@ -2,36 +2,24 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_ctsanpham.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:three_t_fashion/data_sources/api_services.dart';
 import 'package:three_t_fashion/models/product.dart';
 import 'package:three_t_fashion/screens/details/detail_screen.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
+import 'package:three_t_fashion/data_sources/api_listsanpham.dart';
 import '../../../models/product.dart';
 import '../../../constants.dart';
 import 'package:http/http.dart' as http;
 
 class ListItems extends StatefulWidget {
-  const ListItems({Key? key}) : super(key: key);
+  final int idTaiKhoan;
+  final Future<List<Product>> list;
+  const ListItems(this.idTaiKhoan, this.list, {Key? key}) : super(key: key);
 
   @override
   _ListItemsState createState() => _ListItemsState();
-}
-
-Future<List<Product>> fetchProduct() async {
-  List<Product> list = [];
-  try {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:8000/api/san-pham/danh-sach'));
-    List responseJson = await json.decode(response.body);
-    if (response.statusCode == 200) {
-      list = responseJson.map((e) => Product.fromJson(e)).toList();
-    } else {
-      throw Exception('Failed to load product');
-    }
-  } catch (Exception) {}
-  return list;
 }
 
 class _ListItemsState extends State<ListItems> {
@@ -45,7 +33,7 @@ class _ListItemsState extends State<ListItems> {
     Size size = MediaQuery.of(context).size;
     return Flexible(
       child: FutureBuilder<List<Product>>(
-        future: fetchProduct(),
+        future: widget.list,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
@@ -62,8 +50,8 @@ class _ListItemsState extends State<ListItems> {
                     mainAxisSpacing: 5,
                   ),
                   itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) =>
-                      ListItem(context, snapshot.data![index]))
+                  itemBuilder: (BuildContext context, int index) => ListItem(
+                      context, snapshot.data![index], widget.idTaiKhoan))
               : const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -73,17 +61,21 @@ class _ListItemsState extends State<ListItems> {
   }
 }
 
-Widget ListItem(BuildContext context, Product sp) {
+Widget ListItem(BuildContext context, Product sp, int idtk) {
   return Column(
     children: <Widget>[
-      CachedNetworkImage(
-        imageUrl: 'http://10.0.2.2:8000/storage/${sp.hinhAnh}',
-        fit: BoxFit.cover,
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        errorWidget: (context, url, error) => Container(
-          color: Colors.black12,
+      Container(
+        decoration:
+            BoxDecoration(border: Border.all(color: Colors.black, width: 0.1)),
+        child: CachedNetworkImage(
+          imageUrl: 'http://10.0.2.2:8001/storage/${sp.hinhAnh}',
+          fit: BoxFit.cover,
+          placeholder: (context, url) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          errorWidget: (context, url, error) => Container(
+            color: Colors.black12,
+          ),
         ),
       ),
       // Image.asset(),
@@ -92,7 +84,8 @@ Widget ListItem(BuildContext context, Product sp) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailsScreen(),
+              builder: (context) => DetailsScreen(
+                  idtk, ApiServicesCTSanPham.fetchProductDetail(sp.id!)),
             ),
           );
         },
@@ -115,7 +108,7 @@ Widget ListItem(BuildContext context, Product sp) {
           child: Row(
             children: <Widget>[
               const SizedBox(
-                height: 50,
+                height: 20,
               ),
               RichText(
                 text: TextSpan(

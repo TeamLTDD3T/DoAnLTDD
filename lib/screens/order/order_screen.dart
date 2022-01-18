@@ -5,8 +5,10 @@ import 'components/list_delivered.dart';
 import 'components/list_delivering.dart';
 import 'components/list_processed.dart';
 import 'components/list_processing.dart';
+
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({Key? key}) : super(key: key);
+  final idTaiKhoan;
+  const OrderScreen(this.idTaiKhoan, {Key? key}) : super(key: key);
 
   @override
   _OrderScreenState createState() => _OrderScreenState();
@@ -19,17 +21,17 @@ class _OrderScreenState extends State<OrderScreen> {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Order (5 status)',
             style: TextStyle(
               color: Colors.white,
             ),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             isScrollable: true,
             tabs: [
               Tab(
-                child: Text (
+                child: Text(
                   'Processing',
                   style: TextStyle(
                     fontSize: 16,
@@ -37,7 +39,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
               Tab(
-                child: Text (
+                child: Text(
                   'Processed',
                   style: TextStyle(
                     fontSize: 16,
@@ -45,7 +47,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
               Tab(
-                child: Text (
+                child: Text(
                   'Delivering',
                   style: TextStyle(
                     fontSize: 16,
@@ -53,7 +55,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
               Tab(
-                child: Text (
+                child: Text(
                   'Delivered',
                   style: TextStyle(
                     fontSize: 16,
@@ -61,7 +63,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ),
               Tab(
-                child: Text (
+                child: Text(
                   'Cancel',
                   style: TextStyle(
                     fontSize: 16,
@@ -74,17 +76,14 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
         body: TabBarView(
           children: [
-            ListProcessing(),
-            ListProcessed(),
-            ListDelivering(),
-            ListDelivered(),
-            ListCancel(),
+            ListProcessing(widget.idTaiKhoan),
+            ListProcessed(widget.idTaiKhoan),
+            ListDelivering(widget.idTaiKhoan),
+            ListDelivered(widget.idTaiKhoan),
+            ListCancel(widget.idTaiKhoan),
           ],
         ),
       ),
     );
   }
 }
-
-
-

@@ -180,13 +180,13 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                       if (_frmKey.currentState!.validate()) {
                         _frmKey.currentState!.save();
 
-                        var test = await ApiServices()
+                        var test = await ApiServicesTaiKhoan()
                             .dangNhap(txtEmail.text, txtMatKhau.text);
                         if (test.email != '') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreens(),
+                              builder: (context) => HomeScreens(0, test.id),
                             ),
                           );
                         } else {
@@ -194,7 +194,8 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                             context: context,
                             builder: (context) => AlertDialog(
                               title: const Text('Notification'),
-                              content: const Text('Login failed'),
+                              content:
+                                  const Text('Email or password incorrect'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, 'OK'),

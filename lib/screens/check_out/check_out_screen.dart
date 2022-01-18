@@ -10,7 +10,8 @@ class CheckOutScreen extends StatelessWidget {
 }
 
 class CheckOutScreens extends StatefulWidget {
-  const CheckOutScreens({Key? key}) : super(key: key);
+  final idTaiKhoan;
+  const CheckOutScreens(this.idTaiKhoan, {Key? key}) : super(key: key);
 
   @override
   _CheckOutScreensState createState() => _CheckOutScreensState();
@@ -19,19 +20,25 @@ class CheckOutScreens extends StatefulWidget {
 class _CheckOutScreensState extends State<CheckOutScreens> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Check out',
-          style: TextStyle(
-            color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Check out',
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
+          backgroundColor: Colors.black,
         ),
-        backgroundColor: Colors.black,
+        body: Body(widget.idTaiKhoan),
       ),
-      body: Body(),
     );
   }
 }
-
-

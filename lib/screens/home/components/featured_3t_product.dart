@@ -1,78 +1,69 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_ctsanpham.dart';
+import 'package:three_t_fashion/data_sources/api_listsanpham.dart';
+import 'package:three_t_fashion/models/product.dart';
 import 'package:three_t_fashion/screens/details/detail_screen.dart';
 
 import '../../../constants.dart';
 
 class FeaturedProducts extends StatelessWidget {
-  const FeaturedProducts({
-    Key? key,
-  }) : super(key: key);
-
+  final int idTaiKhoan;
+  const FeaturedProducts(this.idTaiKhoan, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          FeatureProductCard(
-            image: "assets/images/Products/Sneakers/Sneaker_Nike2_Black_FirstView_Front.jpg",
-            title: "Samantha",
-            country: "Russia",
-            price: 440,
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-          FeatureProductCard(
-            image: "assets/images/Products/Sneakers/Sneaker_Nike4_EnigmaStone-Black-ChileRed-Camellia_FirstView_Front.jpg",
-            title: "Angelica",
-            country: "Russia",
-            price: 440,
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-          FeatureProductCard(
-            image: "assets/images/Products/Sneakers/Sneaker_Nike3_White_FirstView_Front.jpg",
-            title: "Samantha",
-            country: "Russia",
-            price: 440,
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-        ],
+      child: FutureBuilder<List<Product>>(
+        future: ApiServices.fetchProductFea(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+          return snapshot.hasData
+              ? Row(
+                  children: [
+                    for (var i = 0; i <= snapshot.data!.length / 2; i++)
+                      FeaturedProductCard(
+                        image: 'http://10.0.2.2:8001/storage/' +
+                            snapshot.data![i].hinhAnh.toString(),
+                        title: snapshot.data![i].tenSanPham.toString(),
+                        brand: snapshot.data![i].tenThuongHieu.toString(),
+                        price: int.parse(snapshot.data![i].gia.toString()),
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsScreen(
+                                  this.idTaiKhoan,
+                                  ApiServicesCTSanPham.fetchProductDetail(
+                                      snapshot.data![i].id!)),
+                            ),
+                          );
+                        },
+                      ),
+                  ],
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
       ),
     );
   }
 }
 
-class FeatureProductCard extends StatelessWidget {
-  const FeatureProductCard({
+class FeaturedProductCard extends StatelessWidget {
+  const FeaturedProductCard({
     Key? key,
     required this.image,
     required this.title,
-    required this.country,
+    required this.brand,
     required this.price,
     required this.press,
   }) : super(key: key);
 
-  final String image, title, country;
+  final String image, title, brand;
   final int price;
   final VoidCallback press;
 
@@ -85,10 +76,23 @@ class FeatureProductCard extends StatelessWidget {
         top: kDefaultPadding / 2,
         bottom: kDefaultPadding * 2.5,
       ),
-      width: size.width * 0.4,
+      width: size.width * 0.42,
       child: Column(
         children: <Widget>[
-          Image.asset(image),
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 0.1)),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => Container(
+                color: Colors.black12,
+              ),
+            ),
+          ),
           GestureDetector(
             onTap: press,
             child: Container(
@@ -116,7 +120,7 @@ class FeatureProductCard extends StatelessWidget {
                             text: "$title\n".toUpperCase(),
                             style: Theme.of(context).textTheme.button),
                         TextSpan(
-                          text: "$country".toUpperCase(),
+                          text: "$brand".toUpperCase(),
                           style: TextStyle(
                             color: kPrimaryColor.withOpacity(0.5),
                           ),

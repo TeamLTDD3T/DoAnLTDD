@@ -4,6 +4,9 @@ import 'header.dart';
 import 'list_items_account.dart';
 
 class AccountBody extends StatelessWidget {
+  final idTaiKhoan;
+  const AccountBody(this.idTaiKhoan, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // It will provie us total height  and width of our screen
@@ -13,8 +16,8 @@ class AccountBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Header(size: size, text: 'My Account'),
-        ListItemsAccount(),
-        SizedBox(height: kDefaultPadding),
+        ListItemsAccount(this.idTaiKhoan),
+        const SizedBox(height: kDefaultPadding),
       ],
     );
   }

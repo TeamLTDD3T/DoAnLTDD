@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
+import 'package:three_t_fashion/models/productdetail.dart';
 
 import '../../../constants.dart';
 
@@ -13,6 +14,8 @@ class ProductPicture extends StatelessWidget {
 }
 
 class ProductPictures extends StatefulWidget {
+  final Future<List<ProductDetail>> list;
+  const ProductPictures(this.list, {Key? key}) : super(key: key);
   @override
   _ProductPicturesState createState() => _ProductPicturesState();
 }
@@ -25,53 +28,47 @@ class _ProductPicturesState extends State<ProductPictures> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
-      child: Column(
-        children: <Widget>[
-          carouselSlider = CarouselSlider(
-            items: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Products/Shirts/Shirt_H&M1_Black-White_Front.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Products/Shirts/Shirt_H&M1_Black-White_Back.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Products/Shirts/Shirt_H&M1_Black-White_Detail.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Products/Shirts/Shirt_H&M1_Black-White_FullView.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ],
-            options: CarouselOptions(
-                height: 550.0,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                }),
-          ),
-        ],
+      child: FutureBuilder<List<ProductDetail>>(
+        future: widget.list,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+          return snapshot.hasData
+              ? Column(
+                  children: <Widget>[
+                    carouselSlider = CarouselSlider(
+                      items: [
+                        for (var i = 0; i < snapshot.data!.length; i++)
+                          Container(
+                            child: CachedNetworkImage(
+                              imageUrl: 'http://10.0.2.2:8001/storage/' +
+                                  snapshot.data![i].hinhAnh!,
+                              fit: BoxFit.cover,
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                              errorWidget: (context, url, error) => Container(
+                                color: Colors.black12,
+                              ),
+                            ),
+                          ),
+                      ],
+                      options: CarouselOptions(
+                          height: 550.0,
+                          viewportFraction: 1,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _current = index;
+                            });
+                          }),
+                    ),
+                  ],
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
       ),
     );
   }

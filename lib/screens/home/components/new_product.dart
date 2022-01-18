@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_ctsanpham.dart';
+import 'package:three_t_fashion/data_sources/api_listsanpham.dart';
+import 'package:three_t_fashion/models/product.dart';
 import 'package:three_t_fashion/screens/details/detail_screen.dart';
 
 import '../../../constants.dart';
 
 class NewProducts extends StatelessWidget {
-  const NewProducts({
+  final int idTaiKhoan;
+  const NewProducts(
+    this.idTaiKhoan, {
     Key? key,
   }) : super(key: key);
 
@@ -12,51 +18,40 @@ class NewProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          NewProductCard(
-            image: "assets/images/Products/Outerwear/Outerwear_Adidas1_Black-White_FirstView_Front.jpg",
-            title: "Samantha",
-            country: "Russia",
-            price: 440,
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-          NewProductCard(
-            image: "assets/images/Products/T-shirts/T-Shirt_Nike2_Black_FirstView_Front.jpg",
-            title: "Angelica",
-            country: "Russia",
-            price: 440,
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-          NewProductCard(
-            image: "assets/images/Products/Pants/Pant_H&M1_LightKhakiGreen_FirstView_Front.jpg",
-            title: "Samantha",
-            country: "Russia",
-            price: 440,
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DetailsScreen(),
-                ),
-              );
-            },
-          ),
-        ],
+      child: FutureBuilder<List<Product>>(
+        future: ApiServices.fetchProductNew(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error.toString()));
+          }
+          return snapshot.hasData
+              ? Row(
+                  children: [
+                    for (var i = 0; i <= snapshot.data!.length / 2; i++)
+                      NewProductCard(
+                        image: 'http://10.0.2.2:8001/storage/' +
+                            snapshot.data![i].hinhAnh.toString(),
+                        title: snapshot.data![i].tenSanPham.toString(),
+                        brand: snapshot.data![i].tenThuongHieu.toString(),
+                        price: int.parse(snapshot.data![i].gia.toString()),
+                        press: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DetailsScreen(
+                                  this.idTaiKhoan,
+                                  ApiServicesCTSanPham.fetchProductDetail(
+                                      snapshot.data![i].id!)),
+                            ),
+                          );
+                        },
+                      ),
+                  ],
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
       ),
     );
   }
@@ -67,12 +62,12 @@ class NewProductCard extends StatelessWidget {
     Key? key,
     required this.image,
     required this.title,
-    required this.country,
+    required this.brand,
     required this.price,
     required this.press,
   }) : super(key: key);
 
-  final String image, title, country;
+  final String image, title, brand;
   final int price;
   final VoidCallback press;
 
@@ -85,10 +80,23 @@ class NewProductCard extends StatelessWidget {
         top: kDefaultPadding / 2,
         bottom: kDefaultPadding * 2.5,
       ),
-      width: size.width * 0.4,
+      width: size.width * 0.42,
       child: Column(
         children: <Widget>[
-          Image.asset(image),
+          Container(
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 0.1)),
+            child: CachedNetworkImage(
+              imageUrl: image,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
+              errorWidget: (context, url, error) => Container(
+                color: Colors.black12,
+              ),
+            ),
+          ),
           GestureDetector(
             onTap: press,
             child: Container(
@@ -116,7 +124,7 @@ class NewProductCard extends StatelessWidget {
                             text: "$title\n".toUpperCase(),
                             style: Theme.of(context).textTheme.button),
                         TextSpan(
-                          text: "$country".toUpperCase(),
+                          text: "$brand".toUpperCase(),
                           style: TextStyle(
                             color: kPrimaryColor.withOpacity(0.5),
                           ),

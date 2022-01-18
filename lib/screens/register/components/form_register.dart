@@ -221,7 +221,7 @@ class _FormRegisterState extends State<FormRegister> with InputValidationMixin {
                         _frmKey.currentState!.save();
                         // use the email provided here
 
-                        var flag = await ApiServices().dangKy(
+                        var flag = await ApiServicesTaiKhoan().dangKy(
                             txtEmail.text, txtHoTen.text, txtMatKhau.text);
                         if (flag == 1) {
                           showDialog(

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 class Category {
+  late int id;
   late String name;
   late String icon;
   late Color color;
@@ -8,6 +9,7 @@ class Category {
   late List<Category> subCategories;
 
   Category({
+    required this.id,
     required this.name,
     required this.icon,
     required this.color,

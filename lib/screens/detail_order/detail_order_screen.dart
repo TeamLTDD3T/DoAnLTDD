@@ -2,19 +2,25 @@ import 'package:flutter/material.dart';
 import 'components/body.dart';
 
 class DetailOrderScreen extends StatelessWidget {
-  const DetailOrderScreen({Key? key}) : super(key: key);
+  final idTaiKhoan;
+  final idDonHang;
+  final trangThaiDonHang;
+  const DetailOrderScreen(
+      this.trangThaiDonHang, this.idTaiKhoan, this.idDonHang,
+      {Key? key})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if(!currentFocus.hasPrimaryFocus) {
+        if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Detail Order',
             style: TextStyle(
               color: Colors.white,
@@ -22,11 +28,8 @@ class DetailOrderScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.black,
         ),
-        body: Body(),
+        body: Body(trangThaiDonHang, idTaiKhoan, idDonHang),
       ),
     );
   }
 }
-
-
-

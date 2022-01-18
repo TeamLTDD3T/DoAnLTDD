@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/components/my_bottom_nav_bar.dart';
+import 'package:three_t_fashion/data_sources/api_giohang.dart';
 import 'package:three_t_fashion/screens/home/components/body.dart';
 import 'package:three_t_fashion/screens/home/components/categories_body.dart';
 import 'package:three_t_fashion/screens/home/components/account_body.dart';
@@ -15,18 +16,21 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeScreens extends StatefulWidget {
-
+  final idTaiKhoan;
+  final index;
+  const HomeScreens(this.index, this.idTaiKhoan, {Key? key}) : super(key: key);
   @override
   _HomeScreensState createState() => _HomeScreensState();
 }
 
 class _HomeScreensState extends State<HomeScreens> {
-  int currentIndex = 0;
-  final screens = [
-    Body(),
-    CategoriesBody(),
-    CartBody(),
-    AccountBody(),
+  late int currentIndex = widget.index;
+  late int id = widget.idTaiKhoan;
+  late final screens = [
+    Body(id),
+    CategoriesBody(id),
+    CartBody(id),
+    AccountBody(id),
   ];
 
   @override
@@ -34,43 +38,40 @@ class _HomeScreensState extends State<HomeScreens> {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if(!currentFocus.hasPrimaryFocus) {
+        if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
       },
-        child: Scaffold(
-          body: screens[currentIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.black,
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: Colors.white,
-            iconSize: 30,
-            currentIndex: currentIndex,
-            onTap: (index) => setState(() => currentIndex = index),
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.format_list_bulleted),
-                label: 'Categories',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: 'Cart',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Account',
-              ),
-            ],
-          ),
+      child: Scaffold(
+        body: screens[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.white,
+          iconSize: 30,
+          currentIndex: currentIndex,
+          onTap: (index) => setState(() => currentIndex = index),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.format_list_bulleted),
+              label: 'Categories',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Cart',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Account',
+            ),
+          ],
         ),
+      ),
     );
-
   }
 }
-
-

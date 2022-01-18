@@ -24,7 +24,7 @@ class TitleAndPrice extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "$brand\n",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     color: Colors.black,
                   ),

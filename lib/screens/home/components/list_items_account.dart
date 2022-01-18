@@ -9,12 +9,14 @@ import 'package:three_t_fashion/screens/order/order_screen.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 
 class ListItemsAccount extends StatelessWidget {
+  final idTaiKhoan;
+  const ListItemsAccount(this.idTaiKhoan, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
     return Expanded(
       child: ListView(
-        padding: EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.only(bottom: 10),
         children: [
           ListTile(
             onTap: () {
@@ -25,8 +27,8 @@ class ListItemsAccount extends StatelessWidget {
                 ),
               );
             },
-            leading: Icon(Icons.person_outline, size: 35),
-            title: Text(
+            leading: const Icon(Icons.person_outline, size: 35),
+            title: const Text(
               'Details',
               style: TextStyle(
                 fontSize: 20,
@@ -38,12 +40,12 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OrderScreen(),
+                  builder: (context) => OrderScreen(this.idTaiKhoan),
                 ),
               );
             },
-            leading: Icon(Icons.list_alt, size: 35),
-            title: Text(
+            leading: const Icon(Icons.list_alt, size: 35),
+            title: const Text(
               'My Orders',
               style: TextStyle(
                 fontSize: 20,
@@ -59,8 +61,8 @@ class ListItemsAccount extends StatelessWidget {
                 ),
               );
             },
-            leading: Icon(Icons.favorite_border, size: 35),
-            title: Text(
+            leading: const Icon(Icons.favorite_border, size: 35),
+            title: const Text(
               'My Wishlist',
               style: TextStyle(
                 fontSize: 20,
@@ -76,8 +78,8 @@ class ListItemsAccount extends StatelessWidget {
                 ),
               );
             },
-            leading: Icon(Icons.star_border, size: 35),
-            title: Text(
+            leading: const Icon(Icons.star_border, size: 35),
+            title: const Text(
               'My Reiviews',
               style: TextStyle(
                 fontSize: 20,

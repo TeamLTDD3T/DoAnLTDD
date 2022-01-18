@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:three_t_fashion/components/my_bottom_nav_bar.dart';
 import 'package:three_t_fashion/screens/products/components/body.dart';
 import 'package:three_t_fashion/screens/home/components/categories_body.dart';
+import 'package:three_t_fashion/models/product.dart';
 
 class ListProductScreen extends StatelessWidget {
   const ListProductScreen({Key? key}) : super(key: key);
@@ -12,7 +13,10 @@ class ListProductScreen extends StatelessWidget {
 }
 
 class ListProductsScreen extends StatefulWidget {
-  const ListProductsScreen({Key? key}) : super(key: key);
+  final int idTaiKhoan;
+  final Future<List<Product>> list;
+  const ListProductsScreen(this.idTaiKhoan, this.list, {Key? key})
+      : super(key: key);
 
   @override
   _ListProductsScreenState createState() => _ListProductsScreenState();
@@ -24,15 +28,13 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if(!currentFocus.hasPrimaryFocus) {
+        if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
       },
       child: Scaffold(
-        body: Body(),
+        body: Body(widget.idTaiKhoan, widget.list),
       ),
     );
   }
 }
-
-

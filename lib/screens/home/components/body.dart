@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/constants.dart';
+import 'package:three_t_fashion/data_sources/api_listsanpham.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
-
 import 'banner.dart';
 import 'featured_3t_product.dart';
 import 'header_with_searchbox.dart';
@@ -10,6 +10,8 @@ import 'new_product.dart';
 import 'title_with_more_btn.dart';
 
 class Body extends StatelessWidget {
+  final int idTaiKhoan;
+  const Body(this.idTaiKhoan, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // It will provie us total height  and width of our screen
@@ -22,33 +24,48 @@ class Body extends StatelessWidget {
         children: <Widget>[
           HeaderWithSearchBox(size: size),
           Banners(),
-          TitleWithMoreBtn(title: "Recomended", press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ListProductsScreen(),
-              ),
-            );
-          }),
-          RecomendsProducts(),
-          TitleWithMoreBtn(title: "Featured Products", press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ListProductsScreen(),
-              ),
-            );
-          }),
-          FeaturedProducts(),
-          TitleWithMoreBtn(title: "New Products", press: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ListProductsScreen(),
-              ),
-            );
-          }),
-          NewProducts(),
+          TitleWithMoreBtn(
+              title: "Recomended",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListProductsScreen(
+                        this.idTaiKhoan, ApiServices.fetchProductRecom()),
+                  ),
+                );
+              }),
+          RecomendsProducts(
+            this.idTaiKhoan,
+          ),
+          TitleWithMoreBtn(
+              title: "Featured Products",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListProductsScreen(
+                        this.idTaiKhoan, ApiServices.fetchProductFea()),
+                  ),
+                );
+              }),
+          FeaturedProducts(
+            this.idTaiKhoan,
+          ),
+          TitleWithMoreBtn(
+              title: "New Products",
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ListProductsScreen(
+                        this.idTaiKhoan, ApiServices.fetchProductNew()),
+                  ),
+                );
+              }),
+          NewProducts(
+            this.idTaiKhoan,
+          ),
           const SizedBox(height: kDefaultPadding),
         ],
       ),
