@@ -32,28 +32,6 @@ class BottomCart extends StatelessWidget {
           return snapshot.hasData
               ? Column(
                   children: [
-                    // Row(
-                    //   children: [
-                    //     const Text(
-                    //       'Total amount of all products:',
-                    //       style: TextStyle(
-                    //         fontSize: 20,
-                    //         color: Colors.black,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //     const Spacer(),
-                    //     const Icon(Icons.attach_money),
-                    //     Text(
-                    //       tongTien(snapshot.data!).toString(),
-                    //       style: const TextStyle(
-                    //         fontSize: 20,
-                    //         fontWeight: FontWeight.bold,
-                    //         color: Colors.black,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                     snapshot.data!.length > 0
                         ? Container(
                             width: 400,

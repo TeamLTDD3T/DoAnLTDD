@@ -76,7 +76,7 @@ class _ItemCartState extends State<ItemCart> {
           Row(
             children: [
               FutureBuilder<List>(
-                future: ApiServices.layAnh(widget.ctspid!),
+                future: ApiServicesGioHang.layAnh(widget.ctspid!),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));
@@ -161,7 +161,7 @@ class _ItemCartState extends State<ItemCart> {
                                   TextButton(
                                     onPressed: () {
                                       Navigator.pop(context, 'OK');
-                                      ApiServices.xoaCTGH(widget.id!);
+                                      ApiServicesGioHang.xoaCTGH(widget.id!);
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -245,10 +245,11 @@ class _ItemCartState extends State<ItemCart> {
                                 );
                               }).toList(),
                               onChanged: (value) async {
-                                var updatesize = await ApiServices.capNhatSize(
-                                    int.parse(value!),
-                                    widget.mauid!,
-                                    widget.id);
+                                var updatesize =
+                                    await ApiServicesGioHang.capNhatSize(
+                                        int.parse(value!),
+                                        widget.mauid!,
+                                        widget.id);
                                 if (updatesize == 0) {
                                   showDialog(
                                     context: context,
@@ -297,7 +298,7 @@ class _ItemCartState extends State<ItemCart> {
                             items: quantity.map(buildMenuItem).toList(),
                             onChanged: (value2) => setState(() {
                               this.value2 = value2;
-                              ApiServices.capNhatSoLuong(
+                              ApiServicesGioHang.capNhatSoLuong(
                                   int.parse(value2!), widget.id);
                             }),
                           ),

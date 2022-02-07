@@ -22,10 +22,10 @@ class _CartBodyState extends State<CartBody> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Header(size: size, text: 'Cart'),
-          ListCart(
-              widget.idTaiKhoan, ApiServices.LayGioHang(widget.idTaiKhoan)),
-          BottomCart(
-              widget.idTaiKhoan, ApiServices.LayGioHang(widget.idTaiKhoan)),
+          ListCart(widget.idTaiKhoan,
+              ApiServicesGioHang.LayGioHang(widget.idTaiKhoan)),
+          BottomCart(widget.idTaiKhoan,
+              ApiServicesGioHang.LayGioHang(widget.idTaiKhoan)),
         ],
       ),
     );

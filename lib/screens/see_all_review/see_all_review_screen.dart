@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'components/body.dart';
 
 class SeeAllReviewScreen extends StatelessWidget {
-  const SeeAllReviewScreen({Key? key}) : super(key: key);
+  final ctspid;
+  final int tbsao;
+  const SeeAllReviewScreen(this.ctspid, this.tbsao, {Key? key})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
-        if(!currentFocus.hasPrimaryFocus) {
+        if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
         }
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'See All Review',
             style: TextStyle(
               color: Colors.white,
@@ -22,11 +25,8 @@ class SeeAllReviewScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.black,
         ),
-        body: Body(),
+        body: Body(ctspid, tbsao),
       ),
     );
   }
 }
-
-
-

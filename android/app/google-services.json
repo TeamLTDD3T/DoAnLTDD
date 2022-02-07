@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "375851670327",
+    "project_id": "tfashion-3358e",
+    "storage_bucket": "tfashion-3358e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375851670327:android:ca4eb758307322b80cd8b2",
+        "android_client_info": {
+          "package_name": "com.example.three_t_fashion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "375851670327-h55gbbdh9gu5fve5pe47fma68urqo09d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.three_t_fashion",
+            "certificate_hash": "8ff7234b2a436e31f85cf1edbbcbf165716ba404"
+          }
+        },
+        {
+          "client_id": "375851670327-h7r1oertvk4trvqfm00k0de4q5n2vhra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7IbH93hirD2MMgZ3vmBg0b4TXONLLbos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "375851670327-h7r1oertvk4trvqfm00k0de4q5n2vhra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

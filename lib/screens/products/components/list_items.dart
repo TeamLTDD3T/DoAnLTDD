@@ -64,21 +64,6 @@ class _ListItemsState extends State<ListItems> {
 Widget ListItem(BuildContext context, Product sp, int idtk) {
   return Column(
     children: <Widget>[
-      Container(
-        decoration:
-            BoxDecoration(border: Border.all(color: Colors.black, width: 0.1)),
-        child: CachedNetworkImage(
-          imageUrl: 'http://10.0.2.2:8001/storage/${sp.hinhAnh}',
-          fit: BoxFit.cover,
-          placeholder: (context, url) => const Center(
-            child: CircularProgressIndicator(),
-          ),
-          errorWidget: (context, url, error) => Container(
-            color: Colors.black12,
-          ),
-        ),
-      ),
-      // Image.asset(),
       GestureDetector(
         onTap: () {
           Navigator.push(
@@ -90,53 +75,72 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
           );
         },
         child: Container(
-          padding: const EdgeInsets.all(kDefaultPadding / 2),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 10),
-                blurRadius: 50,
-                color: kPrimaryColor.withOpacity(0.23),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
               ),
-            ],
-          ),
-          child: Row(
-            children: <Widget>[
-              const SizedBox(
-                height: 20,
-              ),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                      text: "${sp.tenSanPham}\n",
-                      style: Theme.of(context).textTheme.button,
-                    ),
-                    TextSpan(
-                      text: sp.tenThuongHieu,
-                      style: TextStyle(
-                        color: kPrimaryColor.withOpacity(0.5),
-                      ),
-                    ),
-                  ],
+              boxShadow: [
+                BoxShadow(
+                  offset: const Offset(0, 10),
+                  blurRadius: 50,
+                  color: kPrimaryColor.withOpacity(0.23),
                 ),
-              ),
-              const Spacer(),
-              Text(
-                "\$" + sp.gia.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .button
-                    ?.copyWith(color: kPrimaryColor),
-              )
-            ],
-          ),
-        ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 0.1)),
+                  child: CachedNetworkImage(
+                    imageUrl: 'http://10.0.2.2:8001/storage/${sp.hinhAnh}',
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: Colors.black12,
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(kDefaultPadding / 2),
+                  child: Row(
+                    children: <Widget>[
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "${sp.tenSanPham}\n",
+                              style: Theme.of(context).textTheme.button,
+                            ),
+                            TextSpan(
+                              text: sp.tenThuongHieu,
+                              style: TextStyle(
+                                color: kPrimaryColor.withOpacity(0.5),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        "\$" + sp.gia.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .button
+                            ?.copyWith(color: kPrimaryColor),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )),
       ),
     ],
   );

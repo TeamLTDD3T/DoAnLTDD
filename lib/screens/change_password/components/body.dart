@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_taikhoan.dart';
+import 'package:three_t_fashion/models/account.dart';
 import 'form_change_password.dart';
 
-
 class Body extends StatelessWidget {
+  final idTaiKhoan;
+  const Body(this.idTaiKhoan, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -10,7 +13,19 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          FormChangePassword(),
+          FutureBuilder<Account>(
+            future: ApiServicesTaiKhoan().layThongTinTaiKhoan(idTaiKhoan),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text(snapshot.error.toString()));
+              }
+              return snapshot.hasData
+                  ? FormChangePassword(snapshot.data!.email)
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    );
+            },
+          ),
         ],
       ),
     );

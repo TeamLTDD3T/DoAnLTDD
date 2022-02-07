@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 import 'components/list_not_review.dart';
 import 'components/list_reviewed.dart';
 
-
 class MyReviewScreen extends StatefulWidget {
-  const MyReviewScreen({Key? key}) : super(key: key);
+  final idTaiKhoan;
+  const MyReviewScreen(this.idTaiKhoan, {Key? key}) : super(key: key);
 
   @override
   _MyReviewScreenState createState() => _MyReviewScreenState();
@@ -18,16 +19,24 @@ class _MyReviewScreenState extends State<MyReviewScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          leading: BackButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => (HomeScreens(3, widget.idTaiKhoan)),
+              ),
+            );
+          }),
+          title: const Text(
             'My Review',
             style: TextStyle(
               color: Colors.white,
             ),
           ),
-          bottom: TabBar(
+          bottom: const TabBar(
             tabs: [
               Tab(
-                child: Text (
+                child: Text(
                   'Not Review',
                   style: TextStyle(
                     fontSize: 16,
@@ -35,7 +44,7 @@ class _MyReviewScreenState extends State<MyReviewScreen> {
                 ),
               ),
               Tab(
-                child: Text (
+                child: Text(
                   'Reviewed',
                   style: TextStyle(
                     fontSize: 16,
@@ -48,14 +57,11 @@ class _MyReviewScreenState extends State<MyReviewScreen> {
         ),
         body: TabBarView(
           children: [
-            ListNotReview(),
-            ListReview(),
+            ListNotReview(widget.idTaiKhoan),
+            ListReview(widget.idTaiKhoan),
           ],
         ),
       ),
     );
   }
 }
-
-
-

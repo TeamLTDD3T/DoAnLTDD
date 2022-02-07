@@ -2,10 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:three_t_fashion/data_sources/api_taikhoan.dart';
+import 'package:three_t_fashion/models/facebook.dart';
 import 'package:three_t_fashion/screens/register/function/check_information.dart';
 import '../../forgot_password/forgot_password_screen.dart';
 import '../../register/register_screen.dart';
 import 'package:three_t_fashion/screens/home/home_screen.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as json;
+import 'dart:convert';
 
 class FormLogin extends StatefulWidget {
   @override
@@ -13,6 +19,10 @@ class FormLogin extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormLogin> with InputValidationMixin {
+  Facebook _userData = Facebook.rong();
+  late GoogleSignInAccount _userObj;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  // Map? _userData;
   final GlobalKey<FormState> _frmKey = GlobalKey<FormState>();
   final txtEmail = TextEditingController();
   final txtMatKhau = TextEditingController();
@@ -38,7 +48,43 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
           Container(
             width: 350,
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                final result = await FacebookAuth.i
+                    .login(permissions: ['public_profile', 'email']);
+                if (result.status == LoginStatus.success) {
+                  final requestData =
+                      await FacebookAuth.i.getUserData(fields: "email, name");
+                  var temp = await ApiServicesTaiKhoan()
+                      .chuyenDoiJsonFacebook(requestData);
+                  setState(() {
+                    _userData = temp;
+                  });
+                  var test = await ApiServicesTaiKhoan()
+                      .dangNhapBangSocial(_userData.email!, _userData.name!, 3);
+                  if (test.email != '') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreens(0, test.id),
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Notification'),
+                        content: const Text('Email already in use!'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                }
+              },
               icon: SvgPicture.asset("assets/icons/facebook.svg",
                   height: 30, color: Colors.white),
               label: const Text(
@@ -48,17 +94,47 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                 ),
               ),
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 57, 70, 151)),
+                    const Color.fromARGB(255, 57, 70, 151)),
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Container(
             width: 350,
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () async {
+                _googleSignIn.signIn().then((userData) async {
+                  setState(() {
+                    _userObj = userData!;
+                  });
+                  var test = await ApiServicesTaiKhoan().dangNhapBangSocial(
+                      _userObj.email, _userObj.displayName!, 4);
+                  if (test.email != '') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreens(0, test.id),
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Notification'),
+                        content: const Text('Email already in use!'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                });
+              },
               icon: SvgPicture.asset("assets/icons/google.svg", height: 30),
               //icon: Icon(Icons.g_translate, color: Colors.black, size: 30),
               label: const Text(
@@ -69,7 +145,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                 ),
               ),
               style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
               ),
             ),
@@ -241,7 +317,8 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                       ),
                     ),
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all(EdgeInsets.all(15)),
+                      padding:
+                          MaterialStateProperty.all(const EdgeInsets.all(15)),
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.blueGrey),
                     ),

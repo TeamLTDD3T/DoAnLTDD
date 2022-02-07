@@ -23,7 +23,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AccountDetailScreen(),
+                  builder: (context) => AccountDetailScreen(idTaiKhoan),
                 ),
               );
             },
@@ -57,7 +57,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => WishlistScreen(),
+                  builder: (context) => WishlistScreen(idTaiKhoan),
                 ),
               );
             },
@@ -74,7 +74,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MyReviewScreen(),
+                  builder: (context) => MyReviewScreen(idTaiKhoan),
                 ),
               );
             },
@@ -91,7 +91,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ChangePasswordScreen(),
+                  builder: (context) => ChangePasswordScreen(idTaiKhoan),
                 ),
               );
             },

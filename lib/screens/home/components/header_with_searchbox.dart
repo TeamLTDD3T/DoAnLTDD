@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:three_t_fashion/screens/search/search_screen.dart';
 
 import '../../../constants.dart';
 
 class HeaderWithSearchBox extends StatelessWidget {
-  const HeaderWithSearchBox({
+  final idTaiKhoan;
+  final idLSP;
+  const HeaderWithSearchBox(
+    this.idLSP,
+    this.idTaiKhoan, {
     Key? key,
     required this.size,
   }) : super(key: key);
@@ -64,7 +69,16 @@ class HeaderWithSearchBox extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
-                      onChanged: (value) {},
+                      readOnly: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                SearchScreen(idTaiKhoan, idLSP),
+                          ),
+                        );
+                      },
                       decoration: InputDecoration(
                         hintText: "Search",
                         hintStyle: TextStyle(

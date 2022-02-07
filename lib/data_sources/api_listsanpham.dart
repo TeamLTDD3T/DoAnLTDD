@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as json;
 
 class ApiServices {
-  static Future<List<Product>> fetchProduct() async {
+  Future<List<Product>> fetchProduct() async {
     List<Product> list = [];
     try {
       final response = await http
@@ -19,7 +19,7 @@ class ApiServices {
     return list;
   }
 
-  static Future<List<Product>> fetchProductRecom() async {
+  Future<List<Product>> fetchProductRecom() async {
     List<Product> list = [];
     try {
       final response = await http
@@ -34,7 +34,7 @@ class ApiServices {
     return list;
   }
 
-  static Future<List<Product>> fetchProductFea() async {
+  Future<List<Product>> fetchProductFea() async {
     List<Product> list = [];
     try {
       final response = await http
@@ -49,7 +49,7 @@ class ApiServices {
     return list;
   }
 
-  static Future<List<Product>> fetchProductNew() async {
+  Future<List<Product>> fetchProductNew() async {
     List<Product> list = [];
     try {
       final response = await http
@@ -64,7 +64,7 @@ class ApiServices {
     return list;
   }
 
-  static Future<List<Product>> fetchProductByType(int idloai) async {
+  Future<List<Product>> fetchProductByType(int idloai) async {
     List<Product> list = [];
     try {
       final response = await http.get(Uri.parse(

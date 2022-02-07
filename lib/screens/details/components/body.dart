@@ -34,13 +34,13 @@ class Body extends StatelessWidget {
           ),
           const SizedBox(height: kDefaultPadding),
           FutureBuilder<List<ProductDetail>>(
-            future: this.list,
+            future: list,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(child: Text(snapshot.error.toString()));
               }
               return snapshot.hasData
-                  ? Tabs(snapshot.data![0].moTa!)
+                  ? Tabs(snapshot.data![0].moTa!, snapshot.data![0].id!)
                   : const Center(
                       child: CircularProgressIndicator(),
                     );

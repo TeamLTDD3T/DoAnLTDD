@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">375851670327-h7r1oertvk4trvqfm00k0de4q5n2vhra.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">375851670327</string>
+    <string name="google_api_key" translatable="false">AIzaSyC7IbH93hirD2MMgZ3vmBg0b4TXONLLbos</string>
+    <string name="google_app_id" translatable="false">1:375851670327:android:ca4eb758307322b80cd8b2</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC7IbH93hirD2MMgZ3vmBg0b4TXONLLbos</string>
+    <string name="google_storage_bucket" translatable="false">tfashion-3358e.appspot.com</string>
+    <string name="project_id" translatable="false">tfashion-3358e</string>
+</resources>

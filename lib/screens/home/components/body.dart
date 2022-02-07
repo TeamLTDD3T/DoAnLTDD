@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          HeaderWithSearchBox(size: size),
+          HeaderWithSearchBox(0, idTaiKhoan, size: size),
           Banners(),
           TitleWithMoreBtn(
               title: "Recomended",
@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ListProductsScreen(
-                        this.idTaiKhoan, ApiServices.fetchProductRecom()),
+                        this.idTaiKhoan, ApiServices().fetchProductRecom()),
                   ),
                 );
               }),
@@ -45,7 +45,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ListProductsScreen(
-                        this.idTaiKhoan, ApiServices.fetchProductFea()),
+                        this.idTaiKhoan, ApiServices().fetchProductFea()),
                   ),
                 );
               }),
@@ -59,7 +59,7 @@ class Body extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ListProductsScreen(
-                        this.idTaiKhoan, ApiServices.fetchProductNew()),
+                        this.idTaiKhoan, ApiServices().fetchProductNew()),
                   ),
                 );
               }),

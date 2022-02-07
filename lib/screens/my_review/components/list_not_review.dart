@@ -1,8 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_ctsanpham.dart';
+import 'package:three_t_fashion/data_sources/api_danhgia.dart';
+import 'package:three_t_fashion/data_sources/api_giohang.dart';
+import 'package:three_t_fashion/models/notreview.dart';
+import 'package:three_t_fashion/screens/details/detail_screen.dart';
+import 'package:three_t_fashion/screens/my_review/components/item_not_review.dart';
 import 'package:three_t_fashion/screens/review/review_screen.dart';
 
 class ListNotReview extends StatefulWidget {
-  const ListNotReview({Key? key}) : super(key: key);
+  final idTaiKhoan;
+  const ListNotReview(this.idTaiKhoan, {Key? key}) : super(key: key);
 
   @override
   _ListNotReviewState createState() => _ListNotReviewState();
@@ -11,223 +19,36 @@ class ListNotReview extends StatefulWidget {
 class _ListNotReviewState extends State<ListNotReview> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        children: <Widget> [
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              SizedBox(
-                height: 200,
-                width: 150,
-                child: Image.asset("assets/images/Products/T-shirts/T-Shirt_Nike2_Black_FirstView_Front.jpg"),
-              ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Under Arrmour',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.only(right: 10, left: 10),
+        child: FutureBuilder<List<NotReview>>(
+          future:
+              ApiServicesDanhGia().layDanhSachChuaDanhGia(widget.idTaiKhoan),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            }
+            return snapshot.hasData
+                ? Column(
+                    children: <Widget>[
+                      for (var i = 0; i < snapshot.data!.length; i++)
+                        ItemNotReview(
+                          widget.idTaiKhoan,
+                          id: snapshot.data![i].id?.toInt(),
+                          ctspid: snapshot.data![i].chiTietSanPhamId?.toInt(),
+                          name: snapshot.data![i].tenSanPham.toString(),
+                          brand: snapshot.data![i].tenThuongHieu.toString(),
+                          price: int.parse(snapshot.data![i].gia.toString()),
+                          size: snapshot.data![i].tenSize.toString(),
                         ),
-                      ),
-                      SizedBox(width: 50),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.close),
-                      ),
                     ],
-                  ),
-                  Text(
-                    'UA Branded Crop',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        'Size: X',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row (
-                    children: [
-                      Text(
-                        'Total: ',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(width: 65),
-                      Icon(Icons.attach_money),
-                      Text(
-                        '138.90',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReviewScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        "Review",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 1,
-            width: 400,
-            color: Colors.grey,
-            alignment: Alignment.center,
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              SizedBox(
-                height: 200,
-                width: 150,
-                child: Image.asset("assets/images/Products/T-shirts/T-Shirt_Nike2_Black_FirstView_Front.jpg"),
-              ),
-              SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        'Under Arrmour',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 50),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.close),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    'UA Branded Crop',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.black,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        'Size: X',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row (
-                    children: [
-                      Text(
-                        'Total: ',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(width: 65),
-                      Icon(Icons.attach_money),
-                      Text(
-                        '138.90',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ReviewScreen(),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        "Review",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 1,
-            width: 400,
-            color: Colors.grey,
-            alignment: Alignment.center,
-          ),
-        ],
+                  )
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  );
+          },
+        ),
       ),
     );
   }

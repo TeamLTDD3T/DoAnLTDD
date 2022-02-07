@@ -6,7 +6,7 @@ import 'dart:convert' as json;
 
 import 'package:three_t_fashion/models/cartdetail.dart';
 
-class ApiServices {
+class ApiServicesGioHang {
   Future<int> themSanPhamVaoGio(int id, int chiTietSanPham) async {
     int flag = 0;
     final response = await http.post(

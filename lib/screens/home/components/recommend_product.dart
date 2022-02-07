@@ -19,7 +19,7 @@ class RecomendsProducts extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: FutureBuilder<List<Product>>(
-        future: ApiServices.fetchProductRecom(),
+        future: ApiServices().fetchProductRecom(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text(snapshot.error.toString()));
@@ -39,7 +39,7 @@ class RecomendsProducts extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => DetailsScreen(
-                                  this.idTaiKhoan,
+                                  idTaiKhoan,
                                   ApiServicesCTSanPham.fetchProductDetail(
                                       snapshot.data![i].id!)),
                             ),
@@ -83,66 +83,72 @@ class RecomendProductCard extends StatelessWidget {
       width: size.width * 0.42,
       child: Column(
         children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 0.1)),
-            child: CachedNetworkImage(
-              imageUrl: image,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: Colors.black12,
-              ),
-            ),
-          ),
           GestureDetector(
             onTap: press,
             child: Container(
-              padding: const EdgeInsets.all(kDefaultPadding / 2),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    offset: const Offset(0, 10),
-                    blurRadius: 50,
-                    color: kPrimaryColor.withOpacity(0.23),
+                // padding: const EdgeInsets.all(kDefaultPadding / 2),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   ),
-                ],
-              ),
-              child: Row(
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                            text: "$title\n".toUpperCase(),
-                            style: Theme.of(context).textTheme.button),
-                        TextSpan(
-                          text: "$brand".toUpperCase(),
-                          style: TextStyle(
-                            color: kPrimaryColor.withOpacity(0.5),
-                          ),
-                        ),
-                      ],
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 10),
+                      blurRadius: 50,
+                      color: kPrimaryColor.withOpacity(0.23),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '\$$price',
-                    style: Theme.of(context)
-                        .textTheme
-                        .button
-                        ?.copyWith(color: kPrimaryColor),
-                  )
-                ],
-              ),
-            ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 0.1)),
+                      child: CachedNetworkImage(
+                        imageUrl: image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) => Container(
+                          color: Colors.black12,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(kDefaultPadding / 2),
+                      child: Row(
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    text: "$title\n".toUpperCase(),
+                                    style: Theme.of(context).textTheme.button),
+                                TextSpan(
+                                  text: "$brand".toUpperCase(),
+                                  style: TextStyle(
+                                    color: kPrimaryColor.withOpacity(0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          Text(
+                            '\$$price',
+                            style: Theme.of(context)
+                                .textTheme
+                                .button
+                                ?.copyWith(color: kPrimaryColor),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
           )
         ],
       ),

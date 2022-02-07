@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           FutureBuilder<List<CartDetail>>(
-            future: ApiServices.LayGioHang(idTaiKhoan),
+            future: ApiServicesGioHang.LayGioHang(idTaiKhoan),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(child: Text(snapshot.error.toString()));
@@ -118,7 +118,7 @@ class Body extends StatelessWidget {
             },
           ),
           FutureBuilder<Account>(
-            future: ApiServicesTaiKhoan.layThongTinTaiKhoan(idTaiKhoan),
+            future: ApiServicesTaiKhoan().layThongTinTaiKhoan(idTaiKhoan),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Center(child: Text(snapshot.error.toString()));

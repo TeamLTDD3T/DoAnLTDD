@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/data_sources/api_giohang.dart';
+import 'package:three_t_fashion/data_sources/api_yeuthich.dart';
 import 'package:three_t_fashion/screens/check_out/check_out_screen.dart';
 import 'package:three_t_fashion/screens/details/components/body.dart';
 import 'package:three_t_fashion/screens/home/components/cart_body.dart';
@@ -23,12 +24,33 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  bool isChoose = false;
   var icon = Icons.favorite_border;
+  var trangThai = 0;
+
+  checkStatus() async {
+    var listtemp = await widget.list;
+    trangThai = await ApiServicesYeuThich()
+        .layTrangThai(widget.idTaiKhoan, listtemp[0].id!);
+    if (trangThai == 1) {
+      setState(() {
+        icon = Icons.favorite;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkStatus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // leading: BackButton(onPressed: () {
+        //   Navigator.pop(context, true);
+        // }),
         title: const Text(
           'Detail Product',
           style: TextStyle(
@@ -41,43 +63,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
       bottomNavigationBar: Row(
         children: <Widget>[
           IconButton(
+            splashRadius: 0.1,
             padding: const EdgeInsets.only(left: 20, bottom: 10),
-            onPressed: _changeIcon,
+            onPressed: () async {
+              setState(() {
+                if (icon == Icons.favorite_border) {
+                  icon = Icons.favorite;
+                } else {
+                  icon = Icons.favorite_border;
+                }
+              });
+              var listtemp = await widget.list;
+              var flag = await ApiServicesYeuThich()
+                  .capNhatTrangThai(widget.idTaiKhoan, listtemp[0].id!);
+            },
             icon: Icon(icon, size: 40, color: Colors.red),
           ),
-          Container(
-            padding: const EdgeInsets.only(left: 40, bottom: 10),
-            width: 170,
-            height: 70,
-            child: ElevatedButton(
-              onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (context) => CheckOutScreens(),
-                //   ),
-                // );
-              },
-              child: const Text(
-                "Buy Now",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                    side: const BorderSide(
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          const Spacer(),
           FutureBuilder<List<ProductDetail>>(
             future: widget.list,
             builder: (context, snapshot) {
@@ -86,13 +88,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
               }
               return snapshot.hasData
                   ? Container(
-                      padding: const EdgeInsets.only(left: 20, bottom: 10),
-                      width: 150,
+                      padding: const EdgeInsets.only(bottom: 10, right: 20),
+                      width: 250,
                       height: 70,
                       child: ElevatedButton(
                         onPressed: () async {
-                          var flag = await ApiServices().themSanPhamVaoGio(
-                              widget.idTaiKhoan, snapshot.data![0].id!);
+                          var flag = await ApiServicesGioHang()
+                              .themSanPhamVaoGio(
+                                  widget.idTaiKhoan, snapshot.data![0].id!);
                           if (flag == 1) {
                             showDialog(
                               context: context,
@@ -147,15 +150,5 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ],
       ),
     );
-  }
-
-  void _changeIcon() {
-    setState(() {
-      isChoose = !isChoose;
-      if (icon == Icons.favorite_border) {
-        icon = Icons.favorite;
-      } else
-        icon = Icons.favorite_border;
-    });
   }
 }

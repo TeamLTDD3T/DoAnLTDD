@@ -21,7 +21,7 @@ class Header extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               top: 15,
               left: 20,
             ),
@@ -34,7 +34,9 @@ class Header extends StatelessWidget {
                 Text(
                   text,
                   style: Theme.of(context).textTheme.headline5?.copyWith(
-                      color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
                 ),
               ],
             ),

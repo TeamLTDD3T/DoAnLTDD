@@ -61,7 +61,7 @@ class _ItemDetailOrderState extends State<ItemDetailOrder> {
           Row(
             children: [
               FutureBuilder<List>(
-                future: ApiServices.layAnh(widget.ctspid!),
+                future: ApiServicesGioHang.layAnh(widget.ctspid!),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return Center(child: Text(snapshot.error.toString()));
@@ -73,11 +73,11 @@ class _ItemDetailOrderState extends State<ItemDetailOrder> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailsScreen(
-                                    widget.idTaiKhoan,
-                                    ApiServicesCTSanPham.fetchProductDetail(
-                                        snapshot.data![0]
-                                                ['chi_tiet_san_pham_id']
-                                            .toInt())),
+                                  widget.idTaiKhoan,
+                                  ApiServicesCTSanPham.fetchProductDetail(
+                                      snapshot.data![0]['chi_tiet_san_pham_id']
+                                          .toInt()),
+                                ),
                               ),
                             );
                           },

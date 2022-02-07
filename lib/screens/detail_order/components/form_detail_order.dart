@@ -6,6 +6,7 @@ import 'package:three_t_fashion/screens/detail_order/components/item_detail_orde
 import 'package:three_t_fashion/screens/details/detail_screen.dart';
 import 'package:three_t_fashion/screens/home/components/item_cart.dart';
 import 'package:three_t_fashion/screens/home/home_screen.dart';
+import 'package:three_t_fashion/screens/order/order_screen.dart';
 
 class FormDetailOrder extends StatefulWidget {
   final idTaiKhoan;
@@ -135,8 +136,8 @@ class _FormDetailOrderState extends State<FormDetailOrder> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => (HomeScreens(
-                                                3, widget.idTaiKhoan)),
+                                            builder: (context) =>
+                                                OrderScreen(widget.idTaiKhoan),
                                           ),
                                         );
                                       },

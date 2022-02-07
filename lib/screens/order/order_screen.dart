@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 import 'components/list_cancel.dart';
 import 'components/list_delivered.dart';
@@ -21,6 +22,14 @@ class _OrderScreenState extends State<OrderScreen> {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
+          leading: BackButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => (HomeScreens(3, widget.idTaiKhoan)),
+              ),
+            );
+          }),
           title: const Text(
             'Order (5 status)',
             style: TextStyle(

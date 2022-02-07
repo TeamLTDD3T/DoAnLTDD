@@ -17,8 +17,23 @@ class Body extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        HeaderWithSearchBox(size: size),
-        ListItems(this.idTaiKhoan, this.list),
+        FutureBuilder<List<Product>>(
+          future: list,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            }
+            return snapshot.hasData
+                ? HeaderWithSearchBox(
+                    snapshot.data![0].loaiSanPhamId, idTaiKhoan,
+                    size: size)
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  );
+          },
+        ),
+
+        ListItems(idTaiKhoan, list),
         //const SizedBox(height: kDefaultPadding),
       ],
     );

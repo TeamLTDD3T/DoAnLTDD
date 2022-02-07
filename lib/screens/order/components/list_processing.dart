@@ -32,7 +32,6 @@ class _ListProcessingState extends State<ListProcessing> {
                           Row(
                             children: [
                               Column(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(
                                     children: [

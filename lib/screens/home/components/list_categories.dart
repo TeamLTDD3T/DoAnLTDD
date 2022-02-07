@@ -37,7 +37,7 @@ class ListCategories extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (context) => ListProductsScreen(
                                   this.idTaiKhoan,
-                                  ApiServices.fetchProductByType(
+                                  ApiServices().fetchProductByType(
                                       snapshot.data![index].id!)),
                             ),
                           );

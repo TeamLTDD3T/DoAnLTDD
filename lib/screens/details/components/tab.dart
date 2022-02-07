@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_danhgia.dart';
 import 'package:three_t_fashion/screens/details/components/tab_detail.dart';
 import 'package:three_t_fashion/screens/details/components/tab_review.dart';
 import 'package:three_t_fashion/screens/details/components/tab_size.dart';
 
 class Tabs extends StatefulWidget {
   final String mota;
-  const Tabs(this.mota, {Key? key}) : super(key: key);
+  final int ctspid;
+  const Tabs(this.mota, this.ctspid, {Key? key}) : super(key: key);
   @override
   _TabsState createState() => _TabsState();
 }
 
 class _TabsState extends State<Tabs> {
+  var tbsao = 0;
+
+  tinhTrungBinhSao() async {
+    int temp = await ApiServicesDanhGia().trungBinhSao(widget.ctspid);
+    setState(() {
+      tbsao = temp;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //tinhTrungBinhSao();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -41,8 +58,8 @@ class _TabsState extends State<Tabs> {
               child: TabBarView(
                 children: <Widget>[
                   TabDetail(widget.mota),
-                  TabSize(),
-                  TabReview(),
+                  const TabSize(),
+                  TabReview(widget.ctspid, tbsao),
                 ],
               ),
             ),

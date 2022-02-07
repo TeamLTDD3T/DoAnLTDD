@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:three_t_fashion/data_sources/api_danhgia.dart';
+import 'package:three_t_fashion/models/review.dart';
 import 'package:three_t_fashion/screens/see_all_review/see_all_review_screen.dart';
 
 class TabReview extends StatelessWidget {
-  const TabReview({Key? key}) : super(key: key);
+  final ctspid;
+  final int tbsao;
+  const TabReview(this.ctspid, this.tbsao, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: const EdgeInsets.all(25),
       child: Column(
         children: [
-          Center(
+          const Center(
             child: Text(
               'Ratings & Reviews',
               style: TextStyle(
@@ -32,19 +36,22 @@ class TabReview extends StatelessWidget {
             children: [
               Container(
                 child: Text(
-                  '5.0',
-                  style: TextStyle(
+                  tbsao.toString(),
+                  style: const TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              SizedBox(width: 15),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
-              Icon(Icons.star, color: Colors.orange),
+              const SizedBox(width: 15),
+              for (var i = 0; i < 5; i++)
+                if (i < tbsao)
+                  const Icon(Icons.star, color: Colors.orange)
+                else
+                  const Icon(
+                    Icons.star,
+                    color: Colors.grey,
+                  ),
             ],
           ),
           const SizedBox(height: 10),
@@ -57,7 +64,7 @@ class TabReview extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             //mainAxisAlignment: MainAxisAlignment.start,
-            children: [
+            children: const [
               Text(
                 'Reviews',
                 style: TextStyle(
@@ -67,124 +74,116 @@ class TabReview extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 10),
-          Row(
-              //mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                const Spacer(),
-                Text(
-                  '25 Dec 2021',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
-                ),
-              ]),
-          SizedBox(height: 5),
-          Row(
-            children: [
-              Text(
-                'By ABC',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-          Text(
-            'Great quality. True to size. Great value for money. Match the description. Nice and comfy. Love the design. Material also very nice. So easy to iron and cool material.',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 15,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Size: International M | Purchased on: 05 Dec 2021',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.grey,
-            ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 1,
-            width: 400,
-            color: Colors.grey,
-            alignment: Alignment.center,
-          ),
-          SizedBox(height: 10),
-          Row(
-              //mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                Icon(Icons.star, color: Colors.orange),
-                const Spacer(),
-                Text(
-                  '25 Dec 2021',
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.grey,
-                  ),
-                ),
-              ]),
-          SizedBox(height: 5),
-          Row(
-            children: [
-              Text(
-                'By ABC',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.black,
-                ),
-              ),
-            ],
-          ),
-          Text(
-            'Great quality. True to size. Great value for money. Match the description. Nice and comfy. Love the design. Material also very nice. So easy to iron and cool material.',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 15,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Size: International M | Purchased on: 05 Dec 2021',
-            textAlign: TextAlign.justify,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.grey,
-            ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            height: 1,
-            width: 400,
-            color: Colors.grey,
-            alignment: Alignment.center,
+          const SizedBox(height: 10),
+          FutureBuilder<List<Review>>(
+            future: ApiServicesDanhGia().layDanhGiaTheoSanPham(ctspid),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Center(child: Text(snapshot.error.toString()));
+              }
+              return snapshot.hasData
+                  ? Column(
+                      children: [
+                        for (var i = 0; i < snapshot.data!.length / 2; i++)
+                          Container(
+                            child: Column(
+                              children: [
+                                Row(children: [
+                                  for (var j = 0; j < 5; j++)
+                                    if (j < snapshot.data![i].soSao!)
+                                      const Icon(Icons.star,
+                                          color: Colors.orange)
+                                    else
+                                      const Icon(
+                                        Icons.star,
+                                        color: Colors.grey,
+                                      ),
+                                  const Spacer(),
+                                  Text(
+                                    snapshot.data![i].createdAt!
+                                        .toString()
+                                        .substring(0, 10),
+                                    textAlign: TextAlign.right,
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ]),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'By ' +
+                                          snapshot.data![i].email!.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Text(
+                                      snapshot.data![i].noiDung!.toString(),
+                                      textAlign: TextAlign.justify,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Size: ' +
+                                          snapshot.data![i].tenSize!.toString(),
+                                      textAlign: TextAlign.justify,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 20),
+                                Container(
+                                  height: 1,
+                                  width: 400,
+                                  color: Colors.grey,
+                                  alignment: Alignment.center,
+                                ),
+                              ],
+                            ),
+                          )
+                      ],
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: const SizedBox(
+                        height: 200,
+                        width: 150,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    );
+            },
           ),
           TextButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SeeAllReviewScreen(),
+                  builder: (context) => SeeAllReviewScreen(ctspid, tbsao),
                 ),
               );
             },
-            child: Text(
+            child: const Text(
               'See all reviews',
               style: TextStyle(
                 fontSize: 18,
