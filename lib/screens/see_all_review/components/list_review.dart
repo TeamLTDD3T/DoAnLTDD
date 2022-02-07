@@ -4,7 +4,7 @@ import 'package:three_t_fashion/models/review.dart';
 
 class ListReview extends StatelessWidget {
   final ctspid;
-  final int tbsao;
+  final double tbsao;
   const ListReview(this.ctspid, this.tbsao, {Key? key}) : super(key: key);
 
   @override

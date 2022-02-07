@@ -13,10 +13,10 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
-  var tbsao = 0;
+  var tbsao = 0.0;
 
   tinhTrungBinhSao() async {
-    int temp = await ApiServicesDanhGia().trungBinhSao(widget.ctspid);
+    var temp = await ApiServicesDanhGia().trungBinhSao(widget.ctspid);
     setState(() {
       tbsao = temp;
     });
@@ -25,7 +25,7 @@ class _TabsState extends State<Tabs> {
   @override
   void initState() {
     super.initState();
-    //tinhTrungBinhSao();
+    tinhTrungBinhSao();
   }
 
   @override

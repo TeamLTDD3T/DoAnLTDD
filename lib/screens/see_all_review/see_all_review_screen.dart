@@ -3,7 +3,7 @@ import 'components/body.dart';
 
 class SeeAllReviewScreen extends StatelessWidget {
   final ctspid;
-  final int tbsao;
+  final double tbsao;
   const SeeAllReviewScreen(this.ctspid, this.tbsao, {Key? key})
       : super(key: key);
   @override

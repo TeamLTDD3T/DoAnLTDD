@@ -52,17 +52,17 @@ class ApiServicesDanhGia {
     return list;
   }
 
-  Future<int> trungBinhSao(int ctspID) async {
+  Future<double> trungBinhSao(int ctspID) async {
     final response = await http.post(
         Uri.parse('http://10.0.2.2:8001/api/danh-gia/trung-binh-sao'),
         body: {
           'ctspID': '$ctspID',
         });
-    int responseJson = await jsonDecode(response.body);
+    var responseJson = await jsonDecode(response.body);
     if (response.statusCode == 200) {
-      return responseJson;
+      return double.parse(responseJson.toString());
     }
-    return 0;
+    return 0.0;
   }
 
   Future<int> themDanhGia(int taiKhoanID, int ctdhID, int ctspID, double soSao,

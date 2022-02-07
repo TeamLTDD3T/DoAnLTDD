@@ -5,7 +5,7 @@ import 'package:three_t_fashion/screens/see_all_review/see_all_review_screen.dar
 
 class TabReview extends StatelessWidget {
   final ctspid;
-  final int tbsao;
+  final double tbsao;
   const TabReview(this.ctspid, this.tbsao, {Key? key}) : super(key: key);
 
   @override
@@ -84,79 +84,195 @@ class TabReview extends StatelessWidget {
               return snapshot.hasData
                   ? Column(
                       children: [
-                        for (var i = 0; i < snapshot.data!.length / 2; i++)
-                          Container(
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  for (var j = 0; j < 5; j++)
-                                    if (j < snapshot.data![i].soSao!)
-                                      const Icon(Icons.star,
-                                          color: Colors.orange)
-                                    else
-                                      const Icon(
-                                        Icons.star,
+                        if (snapshot.data!.length > 3)
+                          for (var i = 0; i < 3; i++)
+                            Container(
+                              child: Column(
+                                children: [
+                                  Row(children: [
+                                    for (var j = 0; j < 5; j++)
+                                      if (j < snapshot.data![i].soSao!)
+                                        const Icon(Icons.star,
+                                            color: Colors.orange)
+                                      else
+                                        const Icon(
+                                          Icons.star,
+                                          color: Colors.grey,
+                                        ),
+                                    const Spacer(),
+                                    Text(
+                                      snapshot.data![i].createdAt!
+                                          .toString()
+                                          .substring(0, 10),
+                                      textAlign: TextAlign.right,
+                                      style: const TextStyle(
+                                        fontSize: 15,
                                         color: Colors.grey,
                                       ),
-                                  const Spacer(),
-                                  Text(
-                                    snapshot.data![i].createdAt!
-                                        .toString()
-                                        .substring(0, 10),
-                                    textAlign: TextAlign.right,
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.grey,
                                     ),
+                                  ]),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'By ' +
+                                            snapshot.data![i].email!.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ]),
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'By ' +
-                                          snapshot.data![i].email!.toString(),
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.black,
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        snapshot.data![i].noiDung!.toString(),
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: [
-                                    Text(
-                                      snapshot.data![i].noiDung!.toString(),
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 15,
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Size: ' +
+                                            snapshot.data![i].tenSize!
+                                                .toString(),
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey,
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 5),
-                                Row(
-                                  children: [
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Container(
+                                    height: 1,
+                                    width: 400,
+                                    color: Colors.grey,
+                                    alignment: Alignment.center,
+                                  ),
+                                ],
+                              ),
+                            )
+                        else
+                          for (var i = 0; i < snapshot.data!.length; i++)
+                            Container(
+                              child: Column(
+                                children: [
+                                  Row(children: [
+                                    for (var j = 0; j < 5; j++)
+                                      if (j < snapshot.data![i].soSao!)
+                                        const Icon(Icons.star,
+                                            color: Colors.orange)
+                                      else
+                                        const Icon(
+                                          Icons.star,
+                                          color: Colors.grey,
+                                        ),
+                                    const Spacer(),
                                     Text(
-                                      'Size: ' +
-                                          snapshot.data![i].tenSize!.toString(),
-                                      textAlign: TextAlign.justify,
+                                      snapshot.data![i].createdAt!
+                                          .toString()
+                                          .substring(0, 10),
+                                      textAlign: TextAlign.right,
                                       style: const TextStyle(
                                         fontSize: 15,
                                         color: Colors.grey,
                                       ),
                                     ),
-                                  ],
+                                  ]),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'By ' +
+                                            snapshot.data![i].email!.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        snapshot.data![i].noiDung!.toString(),
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Size: ' +
+                                            snapshot.data![i].tenSize!
+                                                .toString(),
+                                        textAlign: TextAlign.justify,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Container(
+                                    height: 1,
+                                    width: 400,
+                                    color: Colors.grey,
+                                    alignment: Alignment.center,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              SeeAllReviewScreen(ctspid, tbsao),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text(
+                                      'See all reviews',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                        if (snapshot.data!.length > 3)
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SeeAllReviewScreen(ctspid, tbsao),
                                 ),
-                                const SizedBox(height: 20),
-                                Container(
-                                  height: 1,
-                                  width: 400,
-                                  color: Colors.grey,
-                                  alignment: Alignment.center,
-                                ),
-                              ],
+                              );
+                            },
+                            child: const Text(
+                              'See all reviews',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.green,
+                              ),
                             ),
                           )
                       ],
@@ -174,23 +290,6 @@ class TabReview extends StatelessWidget {
                     );
             },
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SeeAllReviewScreen(ctspid, tbsao),
-                ),
-              );
-            },
-            child: const Text(
-              'See all reviews',
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.green,
-              ),
-            ),
-          )
         ],
       ),
     );

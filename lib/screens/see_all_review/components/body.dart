@@ -4,7 +4,7 @@ import 'list_review.dart';
 
 class Body extends StatelessWidget {
   final ctspid;
-  final int tbsao;
+  final double tbsao;
   const Body(this.ctspid, this.tbsao, {Key? key}) : super(key: key);
 
   @override
