@@ -5,6 +5,7 @@ import 'package:three_t_fashion/data_sources/api_danhgia.dart';
 import 'package:three_t_fashion/data_sources/api_giohang.dart';
 import 'package:three_t_fashion/models/notreview.dart';
 import 'package:three_t_fashion/screens/details/detail_screen.dart';
+import 'package:three_t_fashion/screens/home/home_screen.dart';
 import 'package:three_t_fashion/screens/my_review/components/item_not_review.dart';
 import 'package:three_t_fashion/screens/review/review_screen.dart';
 
@@ -32,6 +33,51 @@ class _ListNotReviewState extends State<ListNotReview> {
             return snapshot.hasData
                 ? Column(
                     children: <Widget>[
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if (snapshot.data!.isEmpty)
+                        Container(
+                            child: Column(
+                          children: [
+                            const Text(
+                              'Haven not bought any products yet to rate',
+                              style: TextStyle(
+                                  fontSize: 20, fontStyle: FontStyle.italic),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: 400,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          (HomeScreens(0, widget.idTaiKhoan)),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  "Shopping now",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
+                                ),
+                                style: ButtonStyle(
+                                  padding: MaterialStateProperty.all(
+                                      const EdgeInsets.all(15)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.black),
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
                       for (var i = 0; i < snapshot.data!.length; i++)
                         ItemNotReview(
                           widget.idTaiKhoan,

@@ -59,7 +59,7 @@ class _FormWishlistState extends State<FormWishlist> {
                               snapshot.data![i].chiTietSanPhamId!),
                         ),
                       const SizedBox(height: 5),
-                      if (snapshot.data!.length == 0)
+                      if (snapshot.data!.isEmpty)
                         Container(
                           width: 400,
                           child: ElevatedButton(

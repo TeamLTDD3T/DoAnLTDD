@@ -27,6 +27,12 @@ class _ListProcessingState extends State<ListProcessing> {
                 ? Column(
                     children: <Widget>[
                       const SizedBox(height: 10),
+                      if (snapshot.data!.isEmpty)
+                        const Text(
+                          'No orders yet',
+                          style: TextStyle(
+                              fontSize: 25, fontStyle: FontStyle.italic),
+                        ),
                       for (var i = 0; i < snapshot.data!.length; i++)
                         if (snapshot.data![i].trangThai == 0)
                           Row(
