@@ -40,58 +40,8 @@ class _FormRegisterState extends State<FormRegister> with InputValidationMixin {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: 350,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: SvgPicture.asset("assets/icons/facebook.svg",
-                  height: 30, color: Colors.white),
-              label: const Text(
-                "Continue with Facebook",
-                style: TextStyle(
-                  fontSize: 20,
-                ),
-              ),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromARGB(255, 57, 70, 151)),
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
-          Container(
-            width: 350,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              icon: SvgPicture.asset("assets/icons/google.svg", height: 30),
-              //icon: Icon(Icons.g_translate, color: Colors.black, size: 30),
-              label: const Text(
-                "Continue with Google",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
               child: const Text(
-            'OR',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          )),
-          const SizedBox(height: 20),
-          Container(
-              child: const Text(
-            'Contiue with your email',
+            'Create Account',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -212,7 +162,7 @@ class _FormRegisterState extends State<FormRegister> with InputValidationMixin {
                     },
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 Container(
                   width: 350,
                   child: ElevatedButton(
@@ -276,6 +226,9 @@ class _FormRegisterState extends State<FormRegister> with InputValidationMixin {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 200,
+                )
               ],
             ),
           ),

@@ -22,8 +22,8 @@ class Header extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(
-              top: 15,
               left: 20,
+              top: 15,
             ),
             height: size.height,
             decoration: const BoxDecoration(

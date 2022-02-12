@@ -5,6 +5,7 @@ import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 import 'banner.dart';
 import 'featured_3t_product.dart';
 import 'header_with_searchbox.dart';
+import 'list_product_home_screen.dart';
 import 'recommend_product.dart';
 import 'new_product.dart';
 import 'title_with_more_btn.dart';
@@ -30,13 +31,13 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ListProductsScreen(
-                        this.idTaiKhoan, ApiServices().fetchProductRecom()),
+                    builder: (context) => ListProductsHomeScreen(
+                        idTaiKhoan, ApiServices().fetchProductRecom()),
                   ),
                 );
               }),
           RecomendsProducts(
-            this.idTaiKhoan,
+            idTaiKhoan,
           ),
           TitleWithMoreBtn(
               title: "Featured Products",
@@ -44,13 +45,13 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ListProductsScreen(
-                        this.idTaiKhoan, ApiServices().fetchProductFea()),
+                    builder: (context) => ListProductsHomeScreen(
+                        idTaiKhoan, ApiServices().fetchProductFea()),
                   ),
                 );
               }),
           FeaturedProducts(
-            this.idTaiKhoan,
+            idTaiKhoan,
           ),
           TitleWithMoreBtn(
               title: "New Products",
@@ -58,7 +59,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ListProductsScreen(
+                    builder: (context) => ListProductsHomeScreen(
                         this.idTaiKhoan, ApiServices().fetchProductNew()),
                   ),
                 );

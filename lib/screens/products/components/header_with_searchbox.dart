@@ -38,7 +38,8 @@ class HeaderWithSearchBox extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: IconButton(
-                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                     icon: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,

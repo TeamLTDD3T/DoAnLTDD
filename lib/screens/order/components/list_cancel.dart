@@ -27,12 +27,12 @@ class _ListCancelState extends State<ListCancel> {
                 ? Column(
                     children: <Widget>[
                       const SizedBox(height: 10),
-                      if (snapshot.data!.isEmpty)
-                        const Text(
-                          'No orders yet',
-                          style: TextStyle(
-                              fontSize: 25, fontStyle: FontStyle.italic),
-                        ),
+                      // if (snapshot.data!.isEmpty)
+                      //   const Text(
+                      //     'No orders yet',
+                      //     style: TextStyle(
+                      //         fontSize: 25, fontStyle: FontStyle.italic),
+                      //   ),
                       for (var i = 0; i < snapshot.data!.length; i++)
                         if (snapshot.data![i].trangThai == 4)
                           Row(
