@@ -3,11 +3,12 @@ import 'package:three_t_fashion/data_sources/api_giohang.dart';
 import 'package:three_t_fashion/data_sources/api_taikhoan.dart';
 import 'package:three_t_fashion/models/account.dart';
 import 'package:three_t_fashion/models/cartdetail.dart';
+import 'package:three_t_fashion/screens/detail_cart/detail_cart_screen.dart';
 
 import 'form_check_out.dart';
 
 class Body extends StatelessWidget {
-  final idTaiKhoan;
+  final int idTaiKhoan;
   const Body(this.idTaiKhoan, {Key? key}) : super(key: key);
 
   tongTien(List<CartDetail> list) {
@@ -101,6 +102,33 @@ class Body extends StatelessWidget {
                                 ),
                               ),
                             ],
+                          ),
+                          const SizedBox(height: 15),
+                          Container(
+                            width: 250,
+                            height: 40,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailCartScreens(idTaiKhoan)),
+                                );
+                              },
+                              child: const Text(
+                                "Detail cart",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.black),
+                              ),
+                            ),
                           ),
                           const SizedBox(height: 15),
                           Container(

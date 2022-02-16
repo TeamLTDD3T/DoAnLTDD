@@ -18,14 +18,11 @@ class TitleWithMoreBtn extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Title(
-              color: Colors.black,
-              child: Text(
-                title,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20
-                ),
-              ),
+            color: Colors.black,
+            child: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
           ),
           const Spacer(),
           TextButton(
@@ -34,7 +31,9 @@ class TitleWithMoreBtn extends StatelessWidget {
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
-                  side: const BorderSide(color: kPrimaryColor,),
+                  side: const BorderSide(
+                    color: kPrimaryColor,
+                  ),
                 ),
               ),
             ),

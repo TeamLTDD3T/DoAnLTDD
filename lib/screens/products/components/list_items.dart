@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/data_sources/api_ctsanpham.dart';
+import 'package:three_t_fashion/data_sources/api_giohang.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:three_t_fashion/models/product.dart';
@@ -139,6 +140,57 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
                     ],
                   ),
                 ),
+                Container(
+                  width: 150,
+                  height: 30,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      var flag = await ApiServicesGioHang()
+                          .themSanPhamVaoGio(idtk, sp.id!);
+                      if (flag == 1) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Notification'),
+                            content: const Text('Add Cart Success'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Notification'),
+                            content: const Text(
+                                'The number of products in your cart has reached the limit !'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text(
+                      "Add cart",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.black),
+                    ),
+                  ),
+                )
               ],
             )),
       ),

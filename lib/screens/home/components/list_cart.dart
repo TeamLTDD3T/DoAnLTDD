@@ -17,7 +17,7 @@ class _ListCartState extends State<ListCart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       child: FutureBuilder<List<CartDetail>>(
         future: widget.list,
         builder: (context, snapshot) {
@@ -46,6 +46,9 @@ class _ListCartState extends State<ListCart> {
                     for (var i = 0; i < snapshot.data!.length; i++)
                       ItemCart(
                         widget.idTaiKhoan,
+                        reload: () {
+                          setState(() {});
+                        },
                         id: snapshot.data![i].id?.toInt(),
                         ctspid: snapshot.data![i].chiTietSanPhamId?.toInt(),
                         name: snapshot.data![i].tenSanPham.toString(),

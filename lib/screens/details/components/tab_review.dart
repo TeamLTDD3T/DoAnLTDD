@@ -235,24 +235,6 @@ class TabReview extends StatelessWidget {
                                     color: Colors.grey,
                                     alignment: Alignment.center,
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              SeeAllReviewScreen(ctspid, tbsao),
-                                        ),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'See all reviews',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.green,
-                                      ),
-                                    ),
-                                  )
                                 ],
                               ),
                             ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/data_sources/api_ctsanpham.dart';
+import 'package:three_t_fashion/data_sources/api_giohang.dart';
 import 'package:three_t_fashion/data_sources/api_listsanpham.dart';
 import 'package:three_t_fashion/models/product.dart';
 import 'package:three_t_fashion/screens/details/detail_screen.dart';
@@ -29,6 +30,8 @@ class RecomendsProducts extends StatelessWidget {
                   children: [
                     for (var i = 0; i <= snapshot.data!.length / 2; i++)
                       RecomendProductCard(
+                        idTaiKhoan: idTaiKhoan,
+                        idChiTietSanPham: snapshot.data![i].id!,
                         image: 'http://10.0.2.2:8001/storage/' +
                             snapshot.data![i].hinhAnh.toString(),
                         title: snapshot.data![i].tenSanPham.toString(),
@@ -60,6 +63,8 @@ class RecomendsProducts extends StatelessWidget {
 class RecomendProductCard extends StatelessWidget {
   const RecomendProductCard({
     Key? key,
+    required this.idTaiKhoan,
+    required this.idChiTietSanPham,
     required this.image,
     required this.title,
     required this.brand,
@@ -68,7 +73,7 @@ class RecomendProductCard extends StatelessWidget {
   }) : super(key: key);
 
   final String image, title, brand;
-  final int price;
+  final int price, idTaiKhoan, idChiTietSanPham;
   final VoidCallback press;
 
   @override
@@ -78,7 +83,7 @@ class RecomendProductCard extends StatelessWidget {
       margin: const EdgeInsets.only(
         left: kDefaultPadding,
         top: kDefaultPadding / 2,
-        bottom: kDefaultPadding * 2.5,
+        bottom: kDefaultPadding * 1.5,
       ),
       width: size.width * 0.42,
       child: Column(
@@ -147,6 +152,60 @@ class RecomendProductCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Container(
+                      // padding: const EdgeInsets.only(bottom: 10, right: 20),
+                      width: 150,
+                      height: 30,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          var flag = await ApiServicesGioHang()
+                              .themSanPhamVaoGio(idTaiKhoan, idChiTietSanPham);
+                          if (flag == 1) {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Notification'),
+                                content: const Text('Add Cart Success'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Notification'),
+                                content: const Text(
+                                    'The number of products in your cart has reached the limit !'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                        child: const Text(
+                          "Add cart",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.black),
+                        ),
+                      ),
+                    )
                   ],
                 )),
           )

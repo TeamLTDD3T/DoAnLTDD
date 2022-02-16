@@ -14,9 +14,10 @@ import 'package:three_t_fashion/screens/home/home_screen.dart';
 
 class ItemCart extends StatefulWidget {
   final int idTaiKhoan;
-  const ItemCart(
+  ItemCart(
     this.idTaiKhoan, {
     Key? key,
+    this.reload,
     required this.id,
     required this.name,
     required this.brand,
@@ -29,6 +30,7 @@ class ItemCart extends StatefulWidget {
 
   final String name, brand;
   final int? price, quantity, sizeid, id, ctspid, mauid;
+  VoidCallback? reload;
 
   @override
   _ItemCartState createState() => _ItemCartState();
@@ -94,7 +96,7 @@ class _ItemCartState extends State<ItemCart> {
                                                 ['chi_tiet_san_pham_id']
                                             .toInt())),
                               ),
-                            );
+                            ).then((value) => setState(() => widget.reload!()));
                           },
                           child: Container(
                             decoration: BoxDecoration(

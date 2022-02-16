@@ -28,7 +28,8 @@ class ListCategories extends StatelessWidget {
                   itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 20),
                       height: 150,
                       child: GestureDetector(
                         onTap: () {
