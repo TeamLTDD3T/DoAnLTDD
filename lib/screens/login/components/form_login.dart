@@ -49,23 +49,19 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
             width: 350,
             child: ElevatedButton.icon(
               onPressed: () async {
-                final result = await FacebookAuth.i
-                    .login(permissions: ['public_profile', 'email']);
+                final result = await FacebookAuth.i.login(permissions: ['public_profile', 'email']);
                 if (result.status == LoginStatus.success) {
-                  final requestData =
-                      await FacebookAuth.i.getUserData(fields: "email, name");
-                  var temp = await ApiServicesTaiKhoan()
-                      .chuyenDoiJsonFacebook(requestData);
+                  final requestData = await FacebookAuth.i.getUserData(fields: "email, name");
+                  var temp = await ApiServicesTaiKhoan().chuyenDoiJsonFacebook(requestData);
                   setState(() {
                     _userData = temp;
                   });
-                  var test = await ApiServicesTaiKhoan()
-                      .dangNhapBangSocial(_userData.email!, _userData.name!, 3);
-                  if (test.email != '') {
+                  var user = await ApiServicesTaiKhoan().dangNhapBangSocial(_userData.email!, _userData.name!, 3);
+                  if (user.email != '') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreens(0, test.id),
+                        builder: (context) => HomeScreens(0, user.id),
                       ),
                     );
                   } else {
@@ -85,8 +81,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                   }
                 }
               },
-              icon: SvgPicture.asset("assets/icons/facebook.svg",
-                  height: 30, color: Colors.white),
+              icon: SvgPicture.asset("assets/icons/facebook.svg", height: 30, color: Colors.white),
               label: const Text(
                 "Continue with Facebook",
                 style: TextStyle(
@@ -95,8 +90,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
               ),
               style: ButtonStyle(
                 padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    const Color.fromARGB(255, 57, 70, 151)),
+                backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 57, 70, 151)),
               ),
             ),
           ),
@@ -109,13 +103,12 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                   setState(() {
                     _userObj = userData!;
                   });
-                  var test = await ApiServicesTaiKhoan().dangNhapBangSocial(
-                      _userObj.email, _userObj.displayName!, 4);
-                  if (test.email != '') {
+                  var user = await ApiServicesTaiKhoan().dangNhapBangSocial(_userObj.email, _userObj.displayName!, 4);
+                  if (user.email != '') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreens(0, test.id),
+                        builder: (context) => HomeScreens(0, user.id),
                       ),
                     );
                   } else {
@@ -256,8 +249,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                       if (_frmKey.currentState!.validate()) {
                         _frmKey.currentState!.save();
 
-                        var test = await ApiServicesTaiKhoan()
-                            .dangNhap(txtEmail.text, txtMatKhau.text);
+                        var test = await ApiServicesTaiKhoan().dangNhap(txtEmail.text, txtMatKhau.text);
                         if (test.email != '') {
                           Navigator.push(
                             context,
@@ -270,8 +262,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                             context: context,
                             builder: (context) => AlertDialog(
                               title: const Text('Notification'),
-                              content:
-                                  const Text('Email or password incorrect'),
+                              content: const Text('Email or password incorrect'),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, 'OK'),
@@ -292,8 +283,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                     ),
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all(EdgeInsets.all(15)),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     ),
                   ),
                 ),
@@ -317,10 +307,8 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                       ),
                     ),
                     style: ButtonStyle(
-                      padding:
-                          MaterialStateProperty.all(const EdgeInsets.all(15)),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blueGrey),
+                      padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
                     ),
                   ),
                 ),

@@ -17,8 +17,7 @@ class ListProductHomeScreen extends StatelessWidget {
 class ListProductsHomeScreen extends StatefulWidget {
   final int idTaiKhoan;
   final Future<List<Product>> list;
-  const ListProductsHomeScreen(this.idTaiKhoan, this.list, {Key? key})
-      : super(key: key);
+  const ListProductsHomeScreen(this.idTaiKhoan, this.list, {Key? key}) : super(key: key);
 
   @override
   _ListProductsHomeScreenState createState() => _ListProductsHomeScreenState();
@@ -28,12 +27,12 @@ class _ListProductsHomeScreenState extends State<ListProductsHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
+      // onTap: () {
+      //   FocusScopeNode currentFocus = FocusScope.of(context);
+      //   if (!currentFocus.hasPrimaryFocus) {
+      //     currentFocus.unfocus();
+      //   }
+      // },
       child: Scaffold(
         body: BodyListProduct(widget.idTaiKhoan, widget.list),
       ),

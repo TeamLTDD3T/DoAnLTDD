@@ -17,7 +17,6 @@ class ItemCart extends StatefulWidget {
   ItemCart(
     this.idTaiKhoan, {
     Key? key,
-    this.reload,
     required this.id,
     required this.name,
     required this.brand,
@@ -30,7 +29,6 @@ class ItemCart extends StatefulWidget {
 
   final String name, brand;
   final int? price, quantity, sizeid, id, ctspid, mauid;
-  VoidCallback? reload;
 
   @override
   _ItemCartState createState() => _ItemCartState();
@@ -47,8 +45,7 @@ class _ItemCartState extends State<ItemCart> {
   }
 
   Future laysize(int idctsp) async {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:8001/api/size/lay-size/$idctsp'));
+    final response = await http.get(Uri.parse('http://10.0.2.2:8001/api/size/lay-size/$idctsp'));
     var responseJson = await jsonDecode(response.body);
 
     setState(() {
@@ -90,24 +87,17 @@ class _ItemCartState extends State<ItemCart> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetailsScreen(
-                                    widget.idTaiKhoan,
-                                    ApiServicesCTSanPham.fetchProductDetail(
-                                        snapshot.data![0]
-                                                ['chi_tiet_san_pham_id']
-                                            .toInt())),
+                                    widget.idTaiKhoan, ApiServicesCTSanPham.fetchProductDetail(snapshot.data![0]['chi_tiet_san_pham_id'].toInt())),
                               ),
-                            ).then((value) => setState(() => widget.reload!()));
+                            ).then((value) => Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreens(2, widget.idTaiKhoan))));
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black, width: 0.1)),
+                            decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 0.1)),
                             child: SizedBox(
                               height: 200,
                               width: 150,
                               child: CachedNetworkImage(
-                                imageUrl: 'http://10.0.2.2:8001/storage/' +
-                                    snapshot.data![0]['hinh_anh'].toString(),
+                                imageUrl: 'http://10.0.2.2:8001/storage/' + snapshot.data![0]['hinh_anh'].toString(),
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) => const Center(
                                   child: CircularProgressIndicator(),
@@ -119,8 +109,7 @@ class _ItemCartState extends State<ItemCart> {
                             ),
                           ))
                       : Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)),
+                          decoration: BoxDecoration(border: Border.all(color: Colors.black)),
                           child: const SizedBox(
                             height: 200,
                             width: 150,
@@ -152,12 +141,10 @@ class _ItemCartState extends State<ItemCart> {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: const Text('Notification'),
-                                content: const Text(
-                                    'Do you want to delete this product'),
+                                content: const Text('Do you want to delete this product'),
                                 actions: [
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'Cancel'),
+                                    onPressed: () => Navigator.pop(context, 'Cancel'),
                                     child: const Text('Cancel'),
                                   ),
                                   TextButton(
@@ -167,8 +154,7 @@ class _ItemCartState extends State<ItemCart> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => (HomeScreens(
-                                              2, widget.idTaiKhoan)),
+                                          builder: (context) => (HomeScreens(2, widget.idTaiKhoan)),
                                         ),
                                       );
                                     },
@@ -247,22 +233,16 @@ class _ItemCartState extends State<ItemCart> {
                                 );
                               }).toList(),
                               onChanged: (value) async {
-                                var updatesize =
-                                    await ApiServicesGioHang.capNhatSize(
-                                        int.parse(value!),
-                                        widget.mauid!,
-                                        widget.id);
+                                var updatesize = await ApiServicesGioHang.capNhatSize(int.parse(value!), widget.mauid!, widget.id);
                                 if (updatesize == 0) {
                                   showDialog(
                                     context: context,
                                     builder: (context) => AlertDialog(
                                       title: const Text('Notification'),
-                                      content: const Text(
-                                          'You already have a product of this size in your cart !'),
+                                      content: const Text('You already have a product of this size in your cart !'),
                                       actions: [
                                         TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context, 'OK'),
+                                          onPressed: () => Navigator.pop(context, 'OK'),
                                           child: const Text('OK'),
                                         ),
                                       ],
@@ -300,8 +280,7 @@ class _ItemCartState extends State<ItemCart> {
                             items: quantity.map(buildMenuItem).toList(),
                             onChanged: (value2) => setState(() {
                               this.value2 = value2;
-                              ApiServicesGioHang.capNhatSoLuong(
-                                  int.parse(value2!), widget.id);
+                              ApiServicesGioHang.capNhatSoLuong(int.parse(value2!), widget.id);
                             }),
                           ),
                         ),
@@ -334,8 +313,7 @@ class _ItemCartState extends State<ItemCart> {
                     children: [
                       const Text(
                         'Total: ',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       const Icon(
                         Icons.attach_money,

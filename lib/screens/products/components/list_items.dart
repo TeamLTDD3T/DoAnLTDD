@@ -41,18 +41,16 @@ class _ListItemsState extends State<ListItems> {
           }
           return snapshot.hasData
               ? GridView.builder(
-                  keyboardDismissBehavior:
-                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                   padding: const EdgeInsets.all(kDefaultPadding),
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 170,
-                    childAspectRatio: 2 / 4,
+                    childAspectRatio: 1 / 2,
                     crossAxisSpacing: kDefaultPadding,
                     mainAxisSpacing: 5,
                   ),
                   itemCount: snapshot.data!.length,
-                  itemBuilder: (BuildContext context, int index) => ListItem(
-                      context, snapshot.data![index], widget.idTaiKhoan))
+                  itemBuilder: (BuildContext context, int index) => ListItem(context, snapshot.data![index], widget.idTaiKhoan))
               : const Center(
                   child: CircularProgressIndicator(),
                 );
@@ -70,8 +68,7 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DetailsScreen(
-                  idtk, ApiServicesCTSanPham.fetchProductDetail(sp.id!)),
+              builder: (context) => DetailsScreen(idtk, ApiServicesCTSanPham.fetchProductDetail(sp.id!)),
             ),
           );
         },
@@ -93,8 +90,7 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 0.1)),
+                  decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 0.1)),
                   child: CachedNetworkImage(
                     imageUrl: 'http://10.0.2.2:8001/storage/${sp.hinhAnh}',
                     fit: BoxFit.cover,
@@ -132,10 +128,7 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
                       const Spacer(),
                       Text(
                         "\$" + sp.gia.toString(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .button
-                            ?.copyWith(color: kPrimaryColor),
+                        style: Theme.of(context).textTheme.button?.copyWith(color: kPrimaryColor),
                       )
                     ],
                   ),
@@ -145,8 +138,7 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
                   height: 30,
                   child: ElevatedButton(
                     onPressed: () async {
-                      var flag = await ApiServicesGioHang()
-                          .themSanPhamVaoGio(idtk, sp.id!);
+                      var flag = await ApiServicesGioHang().themSanPhamVaoGio(idtk, sp.id!);
                       if (flag == 1) {
                         showDialog(
                           context: context,
@@ -166,8 +158,7 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
                           context: context,
                           builder: (context) => AlertDialog(
                             title: const Text('Notification'),
-                            content: const Text(
-                                'The number of products in your cart has reached the limit !'),
+                            content: const Text('The number of products in your cart has reached the limit !'),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context, 'OK'),
@@ -186,8 +177,7 @@ Widget ListItem(BuildContext context, Product sp, int idtk) {
                       ),
                     ),
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.black),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     ),
                   ),
                 )

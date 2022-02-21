@@ -28,8 +28,7 @@ class FeaturedProducts extends StatelessWidget {
                       FeaturedProductCard(
                         idTaiKhoan: idTaiKhoan,
                         idChiTietSanPham: snapshot.data![i].id!,
-                        image: 'http://10.0.2.2:8001/storage/' +
-                            snapshot.data![i].hinhAnh.toString(),
+                        image: 'http://10.0.2.2:8001/storage/' + snapshot.data![i].hinhAnh.toString(),
                         title: snapshot.data![i].tenSanPham.toString(),
                         brand: snapshot.data![i].tenThuongHieu.toString(),
                         price: int.parse(snapshot.data![i].gia.toString()),
@@ -37,10 +36,7 @@ class FeaturedProducts extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailsScreen(
-                                  this.idTaiKhoan,
-                                  ApiServicesCTSanPham.fetchProductDetail(
-                                      snapshot.data![i].id!)),
+                              builder: (context) => DetailsScreen(idTaiKhoan, ApiServicesCTSanPham.fetchProductDetail(snapshot.data![i].id!)),
                             ),
                           );
                         },
@@ -48,6 +44,8 @@ class FeaturedProducts extends StatelessWidget {
                   ],
                 )
               : const Center(
+                  widthFactor: 11,
+                  heightFactor: 3,
                   child: CircularProgressIndicator(),
                 );
         },
@@ -105,8 +103,7 @@ class FeaturedProductCard extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 0.1)),
+                      decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 0.1)),
                       child: CachedNetworkImage(
                         imageUrl: image,
                         fit: BoxFit.cover,
@@ -125,9 +122,7 @@ class FeaturedProductCard extends StatelessWidget {
                           RichText(
                             text: TextSpan(
                               children: [
-                                TextSpan(
-                                    text: "$title\n".toUpperCase(),
-                                    style: Theme.of(context).textTheme.button),
+                                TextSpan(text: "$title\n".toUpperCase(), style: Theme.of(context).textTheme.button),
                                 TextSpan(
                                   text: "$brand".toUpperCase(),
                                   style: TextStyle(
@@ -140,10 +135,7 @@ class FeaturedProductCard extends StatelessWidget {
                           const Spacer(),
                           Text(
                             '\$$price',
-                            style: Theme.of(context)
-                                .textTheme
-                                .button
-                                ?.copyWith(color: kPrimaryColor),
+                            style: Theme.of(context).textTheme.button?.copyWith(color: kPrimaryColor),
                           )
                         ],
                       ),
@@ -154,8 +146,7 @@ class FeaturedProductCard extends StatelessWidget {
                       height: 30,
                       child: ElevatedButton(
                         onPressed: () async {
-                          var flag = await ApiServicesGioHang()
-                              .themSanPhamVaoGio(idTaiKhoan, idChiTietSanPham);
+                          var flag = await ApiServicesGioHang().themSanPhamVaoGio(idTaiKhoan, idChiTietSanPham);
                           if (flag == 1) {
                             showDialog(
                               context: context,
@@ -164,8 +155,7 @@ class FeaturedProductCard extends StatelessWidget {
                                 content: const Text('Add Cart Success'),
                                 actions: [
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],
@@ -176,12 +166,10 @@ class FeaturedProductCard extends StatelessWidget {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: const Text('Notification'),
-                                content: const Text(
-                                    'The number of products in your cart has reached the limit !'),
+                                content: const Text('The number of products in your cart has reached the limit !'),
                                 actions: [
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],
@@ -197,8 +185,7 @@ class FeaturedProductCard extends StatelessWidget {
                           ),
                         ),
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                         ),
                       ),
                     )

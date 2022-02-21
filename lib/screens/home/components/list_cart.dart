@@ -46,16 +46,12 @@ class _ListCartState extends State<ListCart> {
                     for (var i = 0; i < snapshot.data!.length; i++)
                       ItemCart(
                         widget.idTaiKhoan,
-                        reload: () {
-                          setState(() {});
-                        },
                         id: snapshot.data![i].id?.toInt(),
                         ctspid: snapshot.data![i].chiTietSanPhamId?.toInt(),
                         name: snapshot.data![i].tenSanPham.toString(),
                         brand: snapshot.data![i].tenThuongHieu.toString(),
                         price: int.parse(snapshot.data![i].gia.toString()),
-                        quantity:
-                            int.parse(snapshot.data![i].soLuong.toString()),
+                        quantity: int.parse(snapshot.data![i].soLuong.toString()),
                         sizeid: snapshot.data![i].sizeId?.toInt(),
                         mauid: snapshot.data![i].mauId?.toInt(),
                       ),

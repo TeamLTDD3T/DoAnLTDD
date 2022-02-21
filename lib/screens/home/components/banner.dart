@@ -26,8 +26,6 @@ class _BannersState extends State<Banners> {
           }
           return snapshot.hasData
               ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     carouselSlider = CarouselSlider(
                       items: [
@@ -35,14 +33,9 @@ class _BannersState extends State<Banners> {
                           Container(
                             margin: const EdgeInsets.all(2.0),
                             child: ClipRRect(
-                              // margin: const EdgeInsets.all(5.0),
-                              // decoration: BoxDecoration(
-                              //   borderRadius: BorderRadius.circular(10.0),
-                              // ),
                               borderRadius: BorderRadius.circular(15),
                               child: CachedNetworkImage(
-                                imageUrl: 'http://10.0.2.2:8001/storage/' +
-                                    snapshot.data![i].hinhAnhBanner!,
+                                imageUrl: 'http://10.0.2.2:8001/storage/' + snapshot.data![i].hinhAnhBanner!,
                                 fit: BoxFit.cover,
                                 placeholder: (context, url) => const Center(
                                   child: CircularProgressIndicator(),
@@ -55,21 +48,19 @@ class _BannersState extends State<Banners> {
                           ),
                       ],
                       options: CarouselOptions(
-                          height: 180.0,
-                          enlargeCenterPage: true,
-                          autoPlay: true,
-                          pauseAutoPlayOnTouch: true,
-                          aspectRatio: 16 / 9,
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          enableInfiniteScroll: true,
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 1000),
-                          viewportFraction: 0.8,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          }),
+                        height: 180.0,
+                        enlargeCenterPage: true,
+                        autoPlay: true,
+                        pauseAutoPlayOnTouch: true,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enableInfiniteScroll: true,
+                        autoPlayAnimationDuration: const Duration(milliseconds: 1000),
+                        // onPageChanged: (index, reason) {
+                        //   setState(() {
+                        //     _current = index;
+                        //   });
+                        // }
+                      ),
                     ),
                   ],
                 )

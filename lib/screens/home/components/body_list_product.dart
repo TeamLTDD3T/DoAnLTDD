@@ -6,8 +6,7 @@ import 'package:three_t_fashion/models/product.dart';
 class BodyListProduct extends StatelessWidget {
   final int idTaiKhoan;
   final Future<List<Product>> list;
-  const BodyListProduct(this.idTaiKhoan, this.list, {Key? key})
-      : super(key: key);
+  const BodyListProduct(this.idTaiKhoan, this.list, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +16,11 @@ class BodyListProduct extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        // FutureBuilder<List<Product>>(
-        //   future: list,
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasError) {
-        //       return Center(child: Text(snapshot.error.toString()));
-        //     }
-        //     return snapshot.hasData
-        //         ? HeaderWithSearchBox(
-        //             snapshot.data![0].loaiSanPhamId, idTaiKhoan,
-        //             size: size)
-        //         : const Center(
-        //             child: CircularProgressIndicator(),
-        //           );
-        //   },
-        // ),
         HeaderHome(
           text: 'List Product',
           size: size,
         ),
         ListItems(idTaiKhoan, list),
-        //const SizedBox(height: kDefaultPadding),
       ],
     );
   }

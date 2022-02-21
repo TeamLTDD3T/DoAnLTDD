@@ -29,8 +29,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   checkStatus() async {
     var listtemp = await widget.list;
-    trangThai = await ApiServicesYeuThich()
-        .layTrangThai(widget.idTaiKhoan, listtemp[0].id!);
+    trangThai = await ApiServicesYeuThich().layTrangThai(widget.idTaiKhoan, listtemp[0].id!);
     if (trangThai == 1) {
       setState(() {
         icon = Icons.favorite;
@@ -74,8 +73,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 }
               });
               var listtemp = await widget.list;
-              var flag = await ApiServicesYeuThich()
-                  .capNhatTrangThai(widget.idTaiKhoan, listtemp[0].id!);
+              var flag = await ApiServicesYeuThich().capNhatTrangThai(widget.idTaiKhoan, listtemp[0].id!);
             },
             icon: Icon(icon, size: 40, color: Colors.red),
           ),
@@ -93,9 +91,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       height: 70,
                       child: ElevatedButton(
                         onPressed: () async {
-                          var flag = await ApiServicesGioHang()
-                              .themSanPhamVaoGio(
-                                  widget.idTaiKhoan, snapshot.data![0].id!);
+                          var flag = await ApiServicesGioHang().themSanPhamVaoGio(widget.idTaiKhoan, snapshot.data![0].id!);
                           if (flag == 1) {
                             showDialog(
                               context: context,
@@ -104,8 +100,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 content: const Text('Add Cart Success'),
                                 actions: [
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],
@@ -116,12 +111,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: const Text('Notification'),
-                                content: const Text(
-                                    'The number of products in your cart has reached the limit !'),
+                                content: const Text('The number of products in your cart has reached the limit !'),
                                 actions: [
                                   TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(context, 'OK'),
+                                    onPressed: () => Navigator.pop(context, 'OK'),
                                     child: const Text('OK'),
                                   ),
                                 ],
@@ -137,8 +130,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                         ),
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.black),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                         ),
                       ),
                     )
