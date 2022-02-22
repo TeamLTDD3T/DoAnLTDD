@@ -12,17 +12,13 @@ class AccountInformation extends StatefulWidget {
   final String address;
   final String fullname;
   final String birthday;
-  const AccountInformation(this.address, this.email, this.fullname, this.phone,
-      this.idTaiKhoan, this.birthday,
-      {Key? key})
-      : super(key: key);
+  const AccountInformation(this.address, this.email, this.fullname, this.phone, this.idTaiKhoan, this.birthday, {Key? key}) : super(key: key);
 
   @override
   _AccountInformationState createState() => _AccountInformationState();
 }
 
-class _AccountInformationState extends State<AccountInformation>
-    with InputValidationMixin {
+class _AccountInformationState extends State<AccountInformation> with InputValidationMixin {
   final GlobalKey<FormState> _frmKey = GlobalKey<FormState>();
   final txtBirthday = TextEditingController();
   final txtFullname = TextEditingController();
@@ -142,12 +138,8 @@ class _AccountInformationState extends State<AccountInformation>
                 onPressed: () async {
                   if (_frmKey.currentState!.validate()) {
                     _frmKey.currentState!.save();
-                    var taiKhoan = await ApiServicesTaiKhoan().capNhatTaiKhoan(
-                        txtEmail.text,
-                        txtFullname.text,
-                        txtBirthday.text,
-                        txtAddress.text,
-                        txtPhone.text);
+                    var taiKhoan = await ApiServicesTaiKhoan()
+                        .capNhatTaiKhoan(txtEmail.text, txtFullname.text, txtBirthday.text, txtAddress.text, txtPhone.text);
                     if (taiKhoan.email != '') {
                       showDialog(
                         context: context,
@@ -161,8 +153,7 @@ class _AccountInformationState extends State<AccountInformation>
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        (HomeScreens(3, widget.idTaiKhoan)),
+                                    builder: (context) => (HomeScreens(3, widget.idTaiKhoan)),
                                   ),
                                 );
                               },
@@ -197,8 +188,7 @@ class _AccountInformationState extends State<AccountInformation>
                 ),
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.black),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
                 ),
               ),
             ),

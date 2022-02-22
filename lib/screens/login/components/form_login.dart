@@ -61,7 +61,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreens(0, user.id),
+                        builder: (context) => HomeScreens(0, user.id!),
                       ),
                     );
                   } else {
@@ -108,7 +108,7 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreens(0, user.id),
+                        builder: (context) => HomeScreens(0, user.id!),
                       ),
                     );
                   } else {
@@ -249,12 +249,12 @@ class _FormLoginState extends State<FormLogin> with InputValidationMixin {
                       if (_frmKey.currentState!.validate()) {
                         _frmKey.currentState!.save();
 
-                        var test = await ApiServicesTaiKhoan().dangNhap(txtEmail.text, txtMatKhau.text);
-                        if (test.email != '') {
+                        var user = await ApiServicesTaiKhoan().dangNhap(txtEmail.text, txtMatKhau.text);
+                        if (user.email != '') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomeScreens(0, test.id),
+                              builder: (context) => HomeScreens(0, user.id!),
                             ),
                           );
                         } else {

@@ -4,8 +4,9 @@ import 'header.dart';
 import 'list_items_account.dart';
 
 class AccountBody extends StatelessWidget {
-  final idTaiKhoan;
-  const AccountBody(this.idTaiKhoan, {Key? key}) : super(key: key);
+  final int idTaiKhoan;
+  final int idLoaiTaiKhoan;
+  const AccountBody(this.idTaiKhoan, this.idLoaiTaiKhoan, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class AccountBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Header(size: size, text: 'My Account'),
-        ListItemsAccount(this.idTaiKhoan),
+        ListItemsAccount(idTaiKhoan, idLoaiTaiKhoan),
         const SizedBox(height: kDefaultPadding),
       ],
     );

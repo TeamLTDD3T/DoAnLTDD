@@ -31,8 +31,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ListProductsHomeScreen(
-                        idTaiKhoan, ApiServices().fetchProductRecom()),
+                    builder: (context) => ListProductsHomeScreen(idTaiKhoan, ApiServices().fetchProductRecom()),
                   ),
                 );
               }),
@@ -45,8 +44,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ListProductsHomeScreen(
-                        idTaiKhoan, ApiServices().fetchProductFea()),
+                    builder: (context) => ListProductsHomeScreen(idTaiKhoan, ApiServices().fetchProductFea()),
                   ),
                 );
               }),
@@ -59,8 +57,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ListProductsHomeScreen(
-                        this.idTaiKhoan, ApiServices().fetchProductNew()),
+                    builder: (context) => ListProductsHomeScreen(this.idTaiKhoan, ApiServices().fetchProductNew()),
                   ),
                 );
               }),

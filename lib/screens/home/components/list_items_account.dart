@@ -9,8 +9,9 @@ import 'package:three_t_fashion/screens/order/order_screen.dart';
 import 'package:three_t_fashion/screens/products/list_products_screen.dart';
 
 class ListItemsAccount extends StatelessWidget {
-  final idTaiKhoan;
-  const ListItemsAccount(this.idTaiKhoan, {Key? key}) : super(key: key);
+  final int idTaiKhoan;
+  final int idLoaiTaiKhoan;
+  const ListItemsAccount(this.idTaiKhoan, this.idLoaiTaiKhoan, {Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
@@ -40,7 +41,7 @@ class ListItemsAccount extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => OrderScreen(this.idTaiKhoan),
+                  builder: (context) => OrderScreen(idTaiKhoan),
                 ),
               );
             },
@@ -86,23 +87,24 @@ class ListItemsAccount extends StatelessWidget {
               ),
             ),
           ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ChangePasswordScreen(idTaiKhoan),
+          if (idLoaiTaiKhoan == 1 || idLoaiTaiKhoan == 2)
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChangePasswordScreen(idTaiKhoan),
+                  ),
+                );
+              },
+              leading: const Icon(Icons.vpn_key_outlined, size: 35),
+              title: const Text(
+                'Change Password',
+                style: TextStyle(
+                  fontSize: 20,
                 ),
-              );
-            },
-            leading: const Icon(Icons.vpn_key_outlined, size: 35),
-            title: const Text(
-              'Change Password',
-              style: TextStyle(
-                fontSize: 20,
               ),
             ),
-          ),
           ListTile(
             onTap: () {
               Navigator.pushAndRemoveUntil(

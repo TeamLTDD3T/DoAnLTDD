@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:three_t_fashion/components/my_bottom_nav_bar.dart';
 import 'package:three_t_fashion/data_sources/api_giohang.dart';
+import 'package:three_t_fashion/data_sources/api_taikhoan.dart';
+import 'package:three_t_fashion/models/account.dart';
 import 'package:three_t_fashion/screens/home/components/body.dart';
 import 'package:three_t_fashion/screens/home/components/categories_body.dart';
 import 'package:three_t_fashion/screens/home/components/account_body.dart';
@@ -16,8 +18,8 @@ class HomeScreen extends StatelessWidget {
 }
 
 class HomeScreens extends StatefulWidget {
-  final idTaiKhoan;
-  final index;
+  final int idTaiKhoan;
+  final int index;
   const HomeScreens(this.index, this.idTaiKhoan, {Key? key}) : super(key: key);
   @override
   _HomeScreensState createState() => _HomeScreensState();
@@ -26,11 +28,26 @@ class HomeScreens extends StatefulWidget {
 class _HomeScreensState extends State<HomeScreens> {
   late int currentIndex = widget.index;
   late int id = widget.idTaiKhoan;
+  var idLoaiTaiKhoan = 0;
+
+  layIdLoaiTaiKhoan(int idTaiKhoan) async {
+    Account acc = await ApiServicesTaiKhoan().layThongTinTaiKhoan(idTaiKhoan);
+    setState(() {
+      idLoaiTaiKhoan = acc.loaiTaiKhoanId!;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    layIdLoaiTaiKhoan(widget.idTaiKhoan);
+  }
+
   late final screens = [
     Body(id),
     CategoriesBody(id),
     CartBody(id),
-    AccountBody(id),
+    AccountBody(id, idLoaiTaiKhoan),
   ];
 
   @override

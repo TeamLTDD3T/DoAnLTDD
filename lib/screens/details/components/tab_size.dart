@@ -9,7 +9,7 @@ class TabSize extends StatelessWidget {
       padding: EdgeInsets.only(top: 25),
       child: Column(
         children: [
-          Center(
+          const Center(
             child: Text(
               'Size Guide',
               textAlign: TextAlign.center,
@@ -20,7 +20,7 @@ class TabSize extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Center(
+          const Center(
             child: Text(
               'All conversion are approximate. Sizes may vary by manufacturer',
               textAlign: TextAlign.center,
@@ -34,7 +34,6 @@ class TabSize extends StatelessWidget {
           Image.asset('assets/images/Size/Size.png'),
         ],
       ),
-
     );
   }
 }
